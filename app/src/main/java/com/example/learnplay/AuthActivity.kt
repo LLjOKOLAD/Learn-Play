@@ -31,12 +31,19 @@ class AuthActivity : AppCompatActivity() {
                 Toast.makeText(this,"Не все поля заполнены", Toast.LENGTH_LONG).show()
             else {
 
-                val db =DbHelper(this,null)
+                val db = DbHelper(this,null)
                 val isAuth = db.getUser(login,pass)
                 if(isAuth) {
+
+
                     Toast.makeText(this, "Пользователь $login авторизован", Toast.LENGTH_LONG).show()
                     userLogin.text.clear()
                     userPass.text.clear()
+
+
+                    db.LogUser(login,"True")
+                    val intent = Intent(this, MainProfile::class.java)
+                    startActivity(intent)
 
                 }
                 else

@@ -23,10 +23,23 @@ class MainActivity : AppCompatActivity() {
         val userPass: EditText = findViewById(R.id.user_pass)
         val button : Button = findViewById(R.id.button_reg)
         val linkToAuth : TextView = findViewById(R.id.link_to_auth)
-        val Res_button : Button = findViewById(R.id.button_res)
+        val resButton : Button = findViewById(R.id.button_res)
 
-        Res_button.setOnClickListener {
-            val db1 = DbHelper(this, null)
+        val db = DbHelper(this,null)
+        val user : User? = db.getLogUser()
+        if(user != null){
+            val intent = Intent(this, MainProfile::class.java)
+            startActivity(intent)
+        }
+
+
+        resButton.setOnClickListener {
+            Toast.makeText(this,"You clicked delete",Toast.LENGTH_SHORT).show()
+            val db = DbHelper(this, null)
+            if(db.deleteDatabase(this)){
+                Toast.makeText(this,"Database successfully clear",Toast.LENGTH_SHORT).show()
+            }
+            db.close()
         }
 
         linkToAuth.setOnClickListener {
@@ -42,7 +55,7 @@ class MainActivity : AppCompatActivity() {
             if(login == ""|| email == ""||pass == "" )
                 Toast.makeText(this,"Не все поля заполнены",Toast.LENGTH_LONG).show()
             else {
-                val user = User(login,email,pass)
+                val user = User(login,email,pass,"True")
 
                 val db =DbHelper(this,null)
                 db.addUser(user)
@@ -51,6 +64,9 @@ class MainActivity : AppCompatActivity() {
                 userLogin.text.clear()
                 userEmail.text.clear()
                 userPass.text.clear()
+
+                val intent = Intent(this, MainProfile::class.java)
+                startActivity(intent)
             }
         }
 
