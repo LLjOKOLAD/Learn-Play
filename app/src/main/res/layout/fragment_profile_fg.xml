@@ -7,50 +7,300 @@
     android:background="#251135"
     tools:context=".ProfileFg">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        app:cardBackgroundColor="#9041CE"
-        app:cardCornerRadius="25dp"
-        app:cardElevation="4dp">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/ProfCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="5dp"
+            app:cardBackgroundColor="#9041CE"
+            app:cardCornerRadius="25dp"
+            app:cardElevation="4dp">
 
-        <RelativeLayout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="15dp"
+                android:background="#9041CE"
+                android:padding="16dp">
+
+
+
+                <!-- Пример: Button -->
+                <ImageView
+                    android:id="@+id/avatarImageView"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="9dp"
+                    android:src="@drawable/ic_archer_1" />
+
+
+
+                <ImageButton
+                    android:id="@+id/changeNameButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_ch_but"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:background="#9041CE"
+
+                    />
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_below="@id/ProfCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Click to edit"
+            android:padding="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="onTextViewClicked" />
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_below="@id/ProfCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:padding="16dp"
+            android:hint="Enter your text"
+            android:inputType="text" />
+
+        <View
+            android:id="@+id/justLine"
+            android:layout_width="match_parent"
+
+            android:layout_height="1dp"
+            android:layout_below="@id/textView"
+            android:background="@android:color/white"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+
+        />
+
+
+        <!-- Карточки -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="15dp"
-            android:background="#9041CE"
-            android:padding="16dp">
+            android:layout_below="@id/justLine"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="200dp"
+            android:orientation="vertical">
+
+            <!-- Первая строка карточек -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <!-- Первая карточка -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    app:cardCornerRadius="15dp"
+                    android:elevation="4dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:cardBackgroundColor="#251135"
+                        app:cardCornerRadius="15dp"
+                        android:layout_margin="3dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/multPers"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:text="100%"
+                                android:layout_marginStart="5dp"
+                                android:textColor="@color/white"
+                                android:textSize="18dp"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:layout_marginStart="5dp"
+                                android:text="Множитель"
+                                android:textSize="18dp"/>
+
+                        </LinearLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Вторая карточка -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    app:cardCornerRadius="15dp"
+                    android:elevation="4dp">
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:cardBackgroundColor="#251135"
+                        app:cardCornerRadius="15dp"
+                        android:layout_margin="3dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/expAmm"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:text="232"
+                                android:layout_marginStart="5dp"
+                                android:textColor="@color/white"
+                                android:textSize="18dp"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:layout_marginStart="5dp"
+                                android:text="Очки опыта"
+                                android:textSize="18dp"/>
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+            <!-- Вторая строка карточек -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <!-- Третья карточка -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    app:cardCornerRadius="15dp"
+                    android:elevation="4dp">
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:cardBackgroundColor="#251135"
+                        app:cardCornerRadius="15dp"
+                        android:layout_margin="3dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:src="@drawable/lige_1"
+                                android:layout_marginStart="5dp"
+                                android:layout_marginTop="1dp"
+                                android:layout_marginBottom="2dp"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:layout_marginStart="5dp"
+                                android:text="Текущая лига"
+                                android:textSize="18dp"/>
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Четвертая карточка -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    app:cardCornerRadius="15dp"
+                    android:elevation="4dp">
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:cardBackgroundColor="#251135"
+                        app:cardCornerRadius="15dp"
+                        android:layout_margin="3dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/profTop"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:text="6"
+                                android:layout_marginStart="5dp"
+                                android:textColor="@color/white"
+                                android:textSize="18dp"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:layout_marginStart="5dp"
+                                android:text="Топ"
+                                android:textSize="18dp"/>
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+        </LinearLayout>
 
 
 
-            <!-- Пример: Button -->
-            <ImageView
-                android:id="@+id/avatarImageView"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="9dp"
-                android:src="@drawable/ic_archer_1" />
 
 
 
-            <ImageButton
-                android:id="@+id/changeNameButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_ch_but"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:background="#9041CE"
-                
-                />
-        </RelativeLayout>
+    </RelativeLayout>
 
 
-    </androidx.cardview.widget.CardView>
 
-    <
 
 
 
