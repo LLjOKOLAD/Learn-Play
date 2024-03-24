@@ -10,4 +10,21 @@
         android:layout_height="match_parent"
         android:text="Settings" />
 
+    <Button
+        android:id="@+id/ch_button"
+        android:layout_marginTop="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Current session"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:layout_marginTop="50dp"
+        android:id="@+id/lg_out_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="160dp"
+        android:text="Log out"
+        tools:ignore="MissingConstraints" />
+
 </FrameLayout>
