@@ -6,8 +6,14 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import android.widget.Toast
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import android.content.SharedPreferences
+import androidx.fragment.app.Fragment
 
 class MainProfile : AppCompatActivity() {
 
@@ -17,39 +23,32 @@ class MainProfile : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_profile)
 
-        val db = DbHelper(this,null)
 
 
+            val navView: BottomNavigationView = findViewById(R.id.bottom_navigation)
+            val navController = findNavController(R.id.nav_host_fragment)
 
-        val user : User? = db.getLogUser()
+            navView.setOnNavigationItemSelectedListener { item ->
+                when (item.itemId) {
+                    R.id.profileFg -> {
+                        // Навигация к фрагменту профиля
+                        navController.navigate(R.id.profileFg)
+                        return@setOnNavigationItemSelectedListener true
+                    }
 
-        if (user != null) {
-            val button: Button = findViewById(R.id.ch_button)
+                    R.id.settingsFg -> {
+                        // Навигация к фрагменту настроек
+                        navController.navigate(R.id.settingsFg)
+                        return@setOnNavigationItemSelectedListener true
+                    }
 
-            button.setOnClickListener {
-                Toast.makeText(
-                    this,
-                    "Login: ${user.login}\nEmail: ${user.email}\nPass: ${user.pass}",
-                    Toast.LENGTH_LONG
-                ).show()
+                    else -> false
+                }
             }
 
-            val lgOutButton : Button = findViewById(R.id.lg_out_button)
 
-            lgOutButton.setOnClickListener {
-                val db = DbHelper(this,null)
-                db.LogUser(user.login,"False")
-                db.close()
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-
-            }
 
             
-
-
-
-        }
 
 
 

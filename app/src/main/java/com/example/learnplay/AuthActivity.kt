@@ -28,7 +28,7 @@ class AuthActivity : AppCompatActivity() {
             val pass = userPass.text.toString().trim()
 
             if(login == ""|| pass == "" )
-                Toast.makeText(this,"Не все поля заполнены", Toast.LENGTH_LONG).show()
+                Toast.makeText(this,"Не все поля заполнены", Toast.LENGTH_SHORT).show()
             else {
 
                 val db = DbHelper(this,null)
@@ -36,7 +36,7 @@ class AuthActivity : AppCompatActivity() {
                 if(isAuth) {
 
 
-                    Toast.makeText(this, "Пользователь $login авторизован", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "Пользователь $login авторизован", Toast.LENGTH_SHORT).show()
                     userLogin.text.clear()
                     userPass.text.clear()
 
@@ -47,7 +47,7 @@ class AuthActivity : AppCompatActivity() {
 
                 }
                 else
-                    Toast.makeText(this,"Неверный логин или пароль",Toast.LENGTH_LONG).show()
+                    Toast.makeText(this,"Неверный логин или пароль",Toast.LENGTH_SHORT).show()
 
 
 

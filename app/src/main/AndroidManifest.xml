@@ -23,9 +23,6 @@
             android:name=".MainProfile"
             android:exported="false" />
         <activity
-            android:name=".Main_Profile"
-            android:exported="false" />
-        <activity
             android:name=".AuthActivity"
             android:exported="false" />
         <activity

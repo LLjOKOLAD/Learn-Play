@@ -8,6 +8,21 @@
     android:background="#201E28"
     tools:context=".MainActivity">
 
+
+    <TextView
+
+        android:id="@+id/link_to_auth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/inter_bold"
+        android:text="Вход"
+        android:layout_marginStart="20dp"
+        android:textColor="#fdfdfd"
+        android:textSize="17sp"
+        android:textStyle="bold" />
+
     <TextView
 
         android:layout_width="wrap_content"
@@ -15,10 +30,10 @@
         android:fontFamily="@font/inter_bold"
         android:textColor="#fdfdfd"
         android:layout_gravity="center"
-        android:layout_marginTop="170dp"
+        android:layout_marginTop="150dp"
         android:textSize="25sp"
         android:textStyle="bold"
-        android:text="Create account"
+        android:text="Создайте аккаунт"
 
         />
 
@@ -32,10 +47,22 @@
         android:textColorHint="#6a6a6a"
         android:layout_marginTop="20dp"
         android:layout_gravity="center"
-        android:hint="Login" />
+        android:hint="Логин" />
 
     <EditText
         android:id="@+id/user_email"
+        android:layout_width="220dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:textColor="#fdfdfd"
+        android:inputType="text"
+        android:textColorHint="#6a6a6a"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:hint="Почта" />
+
+    <EditText
+        android:id="@+id/user_pass"
         android:layout_width="220dp"
         android:layout_height="50dp"
         android:ems="10"
@@ -44,10 +71,10 @@
         android:textColorHint="#6a6a6a"
         android:layout_marginTop="20dp"
         android:layout_gravity="center"
-        android:hint="Email" />
+        android:hint="Пароль" />
 
     <EditText
-        android:id="@+id/user_pass"
+        android:id="@+id/user_pass_rep"
         android:layout_width="220dp"
         android:layout_height="50dp"
         android:ems="10"
@@ -56,35 +83,27 @@
         android:textColorHint="#6a6a6a"
         android:layout_marginTop="20dp"
         android:layout_gravity="center"
-        android:hint="Password"  />
+        android:hint="Повторите пароль"  />
 
     <Button
         android:id="@+id/button_reg"
         android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Registration"
+        android:text="Регистрация"
         android:layout_marginTop="30dp"/>
 
-    <TextView
-
-        android:id="@+id/link_to_auth"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/button_reset"
+        android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="120dp"
-        android:fontFamily="@font/inter_bold"
-        android:text="Log in"
-        android:textColor="#fdfdfd"
-        android:textSize="17sp"
-        android:textStyle="bold" />
+        android:text="Reset data"
+        android:layout_marginTop="30dp"/>
 
-    <Button
-        android:id="@+id/button_res"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:text="Clear base" />
+
+
+
 
 
 </LinearLayout>

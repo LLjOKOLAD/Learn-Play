@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_module"
+    app:startDestination="@id/profileFg">
+
+    <fragment
+        android:id="@+id/profileFg"
+        android:name="com.example.learnplay.ProfileFg"
+        android:label="fragment_profile_fg"
+        tools:layout="@layout/fragment_profile_fg" />
+    <fragment
+        android:id="@+id/settingsFg"
+        android:name="com.example.learnplay.SettingsFg"
+        android:label="fragment_settings_fg"
+        tools:layout="@layout/fragment_settings_fg" />
+</navigation>
