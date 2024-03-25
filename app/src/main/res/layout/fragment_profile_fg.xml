@@ -31,7 +31,7 @@
 
 
 
-                <!-- Пример: Button -->
+
                 <ImageView
                     android:id="@+id/avatarImageView"
                     android:layout_width="120dp"
@@ -43,7 +43,7 @@
 
 
                 <ImageButton
-                    android:id="@+id/changeNameButton"
+                    android:id="@+id/changeAvaButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_ch_but"
@@ -56,33 +56,69 @@
 
         </androidx.cardview.widget.CardView>
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_below="@id/ProfCard"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Click to edit"
-            android:padding="16dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:onClick="onTextViewClicked" />
+        <LinearLayout
+            android:id="@+id/nameLay"
+            android:layout_width="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="8dp"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:layout_below="@id/ProfCard">
 
-        <EditText
-            android:id="@+id/editText"
-            android:layout_below="@id/ProfCard"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:padding="16dp"
-            android:hint="Enter your text"
-            android:inputType="text" />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:textSize="16sp"
+                    android:text="Иван Иванов"
+                    android:padding="16dp"
+                    android:clickable="true"
+                    android:focusable="true" />
+
+                <EditText
+                    android:id="@+id/editText"
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:visibility="invisible"
+                    android:padding="16dp"
+                    android:hint="Enter your text"
+                    android:inputType="text" />
+            </RelativeLayout>
+
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <ImageButton
+
+                android:id="@+id/changeNameButton"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="15dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_ch_but"
+                android:background="#251135"
+
+                />
+
+        </LinearLayout>
+
+
 
         <View
             android:id="@+id/justLine"
             android:layout_width="match_parent"
 
             android:layout_height="1dp"
-            android:layout_below="@id/textView"
+            android:layout_below="@id/nameLay"
             android:background="@android:color/white"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
@@ -92,11 +128,13 @@
 
         <!-- Карточки -->
         <LinearLayout
+            android:id="@+id/propCards"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@id/justLine"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="200dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="6dp"
             android:orientation="vertical">
 
             <!-- Первая строка карточек -->
@@ -292,17 +330,34 @@
             </LinearLayout>
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/achive"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/propCards"
+            android:textSize="25dp"
+            android:text="Достижения"
+            android:textColor="@color/white"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="5dp"
+            />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_below="@id/achive"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="6dp"
+            android:id="@+id/recyclerViewAchievements"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical" />
+
+
 
 
 
 
 
     </RelativeLayout>
-
-
-
-
-
-
-
 </FrameLayout>

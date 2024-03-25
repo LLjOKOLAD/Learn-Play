@@ -1,0 +1,19 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Определение фонового рисунка с закругленными углами -->
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="20dp" />
+            <solid android:color="#CBCBCB" />
+
+        </shape>
+    </item>
+    <!-- Определение рисунка прогресса -->
+    <item android:id="@android:id/progress">
+        <clip>
+            <shape android:shape="rectangle">
+                <corners android:radius="20dp" /> <!-- Радиус скругления углов -->
+                <solid android:color="#FFD300" /> <!-- Цвет самого прогресса -->
+            </shape>
+        </clip>
+    </item>
+</layer-list>
