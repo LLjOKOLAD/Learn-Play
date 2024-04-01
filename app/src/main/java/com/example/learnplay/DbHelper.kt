@@ -11,7 +11,7 @@ import android.util.Log
 class DbHelper(val context: Context,val factory: SQLiteDatabase.CursorFactory?) :
     SQLiteOpenHelper(context,"app",factory,1) {
     override fun onCreate(db: SQLiteDatabase?) {
-        val query = "CREATE TABLE users (id INT PRIMARY KEY, login TEXT, email TEXT, pass TEXT, log_st TEXT)"
+        val query = "CREATE TABLE users (id INT PRIMARY KEY, login TEXT, email TEXT, pass TEXT, log_st TEXT, name TEXT, multiplier REAL, experience INT,character TEXT )"
         db!!.execSQL(query)
     }
 
@@ -35,13 +35,37 @@ class DbHelper(val context: Context,val factory: SQLiteDatabase.CursorFactory?) 
         values.put("login",user.login)
         values.put("email",user.email)
         values.put("pass",user.pass)
-        values.put("log_st","True")
+        values.put("name",user.name)
+        values.put("log_st",user.log_st)
+        values.put("multiplier",user.multiplier)
+        values.put("experience",user.experience)
+        values.put("character",user.character)
 
         val db =this.writableDatabase
         db.insert("users",null, values)
 
         db.close()
     }
+
+    fun updateUser(user: User) {
+        val db = this.writableDatabase
+        val values = ContentValues()
+        values.put("email", user.email)
+        values.put("pass", user.pass)
+        values.put("name", user.name)
+        values.put("log_st", user.log_st)
+        values.put("multiplier", user.multiplier)
+        values.put("experience", user.experience)
+        values.put("character", user.character)
+
+        val whereClause = "login = ?" // условие для обновления пользователя по логину
+        val whereArgs = arrayOf(user.login) // значение логина для условия
+
+        db.update("users", values, whereClause, whereArgs)
+
+        db.close()
+    }
+
 
     fun getUser(login: String, pass: String) : Boolean{
         val db = this.readableDatabase
@@ -67,17 +91,27 @@ class DbHelper(val context: Context,val factory: SQLiteDatabase.CursorFactory?) 
     }
 
 
+
+
     fun getLogUser() : User?{
         val db = this.readableDatabase
         val cursor = db.query("users", null, "log_st = ?", arrayOf("True"), null, null, null)
         val user: User? = if (cursor.moveToFirst()) {
             val nameIndex = cursor.getColumnIndexOrThrow("login")
-            val name: String = cursor.getString(nameIndex)
+            val login: String = cursor.getString(nameIndex)
             val nameIndex1 = cursor.getColumnIndexOrThrow("email")
             val email: String = cursor.getString(nameIndex1)
             val nameIndex2 = cursor.getColumnIndexOrThrow("pass")
             val pass: String = cursor.getString(nameIndex2)
-            User(name, email, pass, "True")
+            val nameIndex3 = cursor.getColumnIndexOrThrow("name")
+            val name: String = cursor.getString(nameIndex3)
+            val nameIndex4 = cursor.getColumnIndexOrThrow("multiplier")
+            val multiplier: Float = cursor.getFloat(nameIndex4)
+            val nameIndex5 = cursor.getColumnIndexOrThrow("experience")
+            val experience: Int = cursor.getInt(nameIndex5)
+            val nameIndex6 = cursor.getColumnIndexOrThrow("character")
+            val character: String = cursor.getString(nameIndex6)
+            User(login, email, pass, name, "True", multiplier, experience, character)
         } else {
             null
         }

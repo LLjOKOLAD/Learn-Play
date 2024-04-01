@@ -50,7 +50,32 @@ class SettingsFg : Fragment() {
                 val intent = Intent(requireContext(),MainActivity::class.java)
                 startActivity(intent)
             }
+
+            val addBut: Button = view.findViewById(R.id.add50exp)
+
+            addBut.setOnClickListener {
+                var exp = user.experience
+                exp += 50
+                user.experience = exp
+                db.updateUser(user)
+            }
+
+            val takeBut: Button = view.findViewById(R.id.take50exp)
+
+            takeBut.setOnClickListener {
+                var exp = user.experience
+                if(exp < 50){
+                    exp = 0
+                }
+                else{
+                    exp -= 50
+                }
+                user.experience = exp
+                db.updateUser(user)
+            }
         }
+        db.close()
+
         return view
     }
 

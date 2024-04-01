@@ -6,6 +6,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#251135"
     tools:context=".ProfileFg">
+<androidx.core.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -123,7 +126,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
 
-        />
+            />
 
 
         <!-- Карточки -->
@@ -165,6 +168,13 @@
                             android:layout_height="wrap_content"
                             android:padding="10dp"
                             android:orientation="vertical">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:layout_marginStart="5dp"
+                                android:text="Множитель"
+                                android:textSize="18dp"/>
 
                             <TextView
                                 android:id="@+id/multPers"
@@ -176,13 +186,7 @@
                                 android:textColor="@color/white"
                                 android:textSize="18dp"/>
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="1"
-                                android:layout_marginStart="5dp"
-                                android:text="Множитель"
-                                android:textSize="18dp"/>
+
 
                         </LinearLayout>
 
@@ -210,6 +214,13 @@
                             android:layout_height="wrap_content"
                             android:padding="10dp"
                             android:orientation="vertical">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:layout_marginStart="5dp"
+                                android:text="Очки опыта"
+                                android:textSize="18dp"/>
 
                             <TextView
                                 android:id="@+id/expAmm"
@@ -221,13 +232,7 @@
                                 android:textColor="@color/white"
                                 android:textSize="18dp"/>
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="1"
-                                android:layout_marginStart="5dp"
-                                android:text="Очки опыта"
-                                android:textSize="18dp"/>
+
 
                         </LinearLayout>
 
@@ -262,15 +267,6 @@
                             android:layout_height="wrap_content"
                             android:padding="10dp"
                             android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
-                                android:src="@drawable/lige_1"
-                                android:layout_marginStart="5dp"
-                                android:layout_marginTop="1dp"
-                                android:layout_marginBottom="2dp"/>
-
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
@@ -278,6 +274,17 @@
                                 android:layout_marginStart="5dp"
                                 android:text="Текущая лига"
                                 android:textSize="18dp"/>
+
+                            <ImageView
+                                android:id="@+id/ligeIcon"
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:src="@drawable/lige_1"
+                                android:layout_marginStart="5dp"
+                                android:layout_marginTop="1dp"
+                                android:layout_marginBottom="2dp"/>
+
+
 
                         </LinearLayout>
 
@@ -304,6 +311,13 @@
                             android:layout_height="wrap_content"
                             android:padding="10dp"
                             android:orientation="vertical">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:layout_marginStart="5dp"
+                                android:text="Топ"
+                                android:textSize="18dp"/>
 
                             <TextView
                                 android:id="@+id/profTop"
@@ -315,13 +329,7 @@
                                 android:textColor="@color/white"
                                 android:textSize="18dp"/>
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="1"
-                                android:layout_marginStart="5dp"
-                                android:text="Топ"
-                                android:textSize="18dp"/>
+
 
                         </LinearLayout>
 
@@ -345,6 +353,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_below="@id/achive"
+            android:nestedScrollingEnabled="false"
             android:layout_marginTop="10dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="6dp"
@@ -360,4 +369,8 @@
 
 
     </RelativeLayout>
+
+
+</androidx.core.widget.NestedScrollView>
+
 </FrameLayout>

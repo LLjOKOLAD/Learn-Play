@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this,"Не все поля заполнены",Toast.LENGTH_SHORT).show()
             else {
                 if (pass == passRep) {
-                    val user1 = User(login, email, pass, "True")
+                    val user1 = User(login, email, pass, "","True",1f,0,"")
 
                     val db1 = DbHelper(this, null)
                     db1.addUser(user1)

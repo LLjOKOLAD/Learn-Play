@@ -17,8 +17,6 @@ import androidx.fragment.app.Fragment
 
 class MainProfile : AppCompatActivity() {
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_profile)
@@ -28,27 +26,30 @@ class MainProfile : AppCompatActivity() {
             val navView: BottomNavigationView = findViewById(R.id.bottom_navigation)
             val navController = findNavController(R.id.nav_host_fragment)
 
-            navView.setOnNavigationItemSelectedListener { item ->
-                when (item.itemId) {
-                    R.id.profileFg -> {
-                        // Навигация к фрагменту профиля
-                        navController.navigate(R.id.profileFg)
-                        return@setOnNavigationItemSelectedListener true
-                    }
-
-                    R.id.settingsFg -> {
-                        // Навигация к фрагменту настроек
-                        navController.navigate(R.id.settingsFg)
-                        return@setOnNavigationItemSelectedListener true
-                    }
-
-                    else -> false
+        navView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.profileFg -> {
+                    // Навигация к фрагменту профиля
+                    navController.navigate(R.id.profileFg)
+                    true
                 }
+
+                R.id.settingsFg -> {
+                    // Навигация к фрагменту настроек
+                    navController.navigate(R.id.settingsFg)
+                    true
+                }
+
+                else -> false
             }
+        }
 
 
 
-            
+
+
+
+
 
 
 
