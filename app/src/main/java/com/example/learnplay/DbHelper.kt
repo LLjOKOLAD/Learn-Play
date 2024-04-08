@@ -11,7 +11,7 @@ import android.util.Log
 class DbHelper(val context: Context,val factory: SQLiteDatabase.CursorFactory?) :
     SQLiteOpenHelper(context,"app",factory,1) {
     override fun onCreate(db: SQLiteDatabase?) {
-        val query = "CREATE TABLE users (id INT PRIMARY KEY, login TEXT, email TEXT, pass TEXT, log_st TEXT, name TEXT, multiplier REAL, experience INT,character TEXT )"
+        val query = "CREATE TABLE users (id INT PRIMARY KEY, login TEXT, email TEXT, pass TEXT, log_st TEXT, name TEXT, multiplier REAL, experience INT, character TEXT )"
         db!!.execSQL(query)
     }
 

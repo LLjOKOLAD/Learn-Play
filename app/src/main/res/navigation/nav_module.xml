@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_module"
-    app:startDestination="@id/profileFg">
+    app:startDestination="@id/learningFg">
 
     <fragment
         android:id="@+id/profileFg"
@@ -15,4 +15,14 @@
         android:name="com.example.learnplay.SettingsFg"
         android:label="fragment_settings_fg"
         tools:layout="@layout/fragment_settings_fg" />
+    <fragment
+        android:id="@+id/learningFg"
+        android:name="com.example.learnplay.Learning"
+        android:label="fragment_learning"
+        tools:layout="@layout/fragment_learning" />
+    <fragment
+        android:id="@+id/tasksFg"
+        android:name="com.example.learnplay.Tasks"
+        android:label="fragment_tasks"
+        tools:layout="@layout/fragment_tasks" />
 </navigation>

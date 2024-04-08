@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Кнопка для рандомного задания -->
+    <Button
+        android:id="@+id/randomButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Рандомное задание"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true" />
+
+    <!-- Кнопка для ежедневного задания -->
+    <Button
+        android:id="@+id/dailyButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ежедневное задание"
+        android:layout_toEndOf="@id/randomButton"
+        android:layout_alignTop="@id/randomButton" />
+
+    <!-- Список тем -->
+    <ListView
+        android:id="@+id/topicsListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/randomButton"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Кнопка для создания квеста -->
+    <Button
+        android:id="@+id/createQuestButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Создать квест"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp" />
+
+</RelativeLayout>

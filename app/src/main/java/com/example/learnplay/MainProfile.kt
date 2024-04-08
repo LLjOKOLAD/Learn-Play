@@ -28,6 +28,18 @@ class MainProfile : AppCompatActivity() {
 
         navView.setOnItemSelectedListener { item ->
             when (item.itemId) {
+                R.id.learningFg -> {
+                    // Навигация к фрагменту настроек
+                    navController.navigate(R.id.learningFg)
+                    true
+                }
+
+                R.id.tasksFg -> {
+                    // Навигация к фрагменту настроек
+                    navController.navigate(R.id.tasksFg)
+                    true
+                }
+
                 R.id.profileFg -> {
                     // Навигация к фрагменту профиля
                     navController.navigate(R.id.profileFg)
@@ -39,6 +51,8 @@ class MainProfile : AppCompatActivity() {
                     navController.navigate(R.id.settingsFg)
                     true
                 }
+
+
 
                 else -> false
             }
