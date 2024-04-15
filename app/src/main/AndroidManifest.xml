@@ -5,6 +5,9 @@
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
 
     <application
         android:allowBackup="false"
@@ -14,8 +17,15 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
         android:theme="@style/Theme.LearnPlay"
         tools:targetApi="31">
+        <activity
+            android:name=".ServerPinging"
+            android:exported="false" />
+        <activity
+            android:name=".TasksChallenging"
+            android:exported="false" />
         <activity
             android:name=".CharacterSelectionActivity"
             android:exported="false" />

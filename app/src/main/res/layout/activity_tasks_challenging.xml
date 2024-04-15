@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textNameQuestion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Задание 1"
+        android:textSize="18sp"
+        android:padding="16dp"/>
+
+    <TextView
+        android:id="@+id/textViewQuestion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textNameQuestion"
+        android:text="Выберите один или несколько правильных ответов.\n1) Площадь квадрата равна произведению двух его смежных сторон. \n2) Диагональ трапеции делит её на два равных треугольника. \n3) Если две стороны одного треугольника соответственно равны двум сторонам другого треугольника, то такие треугольники равны."
+        android:textSize="15sp"
+        android:padding="16dp"/>
+
+    <RadioGroup
+        android:id="@+id/radioGroupAnswers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewQuestion"
+        android:orientation="vertical"
+        android:padding="16dp"/>
+
+    <EditText
+        android:id="@+id/editTextAnswer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/radioGroupAnswers"
+        android:hint="Введите ответ"
+        android:inputType="text"/>
+
+    <Button
+        android:id="@+id/buttonConfirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextAnswer"
+        android:layout_alignParentEnd="true"
+        android:text="Подтвердить"/>
+
+    <TextView
+        android:id="@+id/textViewResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/buttonConfirm"
+        android:layout_alignParentEnd="true"
+        android:textSize="18sp"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/buttonNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewResult"
+        android:layout_alignParentEnd="true"
+        android:text="Далее"
+        android:visibility="gone"/>
+
+</RelativeLayout>

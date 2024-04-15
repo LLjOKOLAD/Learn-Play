@@ -1,35 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#251135">
 
-    <!-- Кнопка для рандомного задания -->
-    <Button
-        android:id="@+id/randomButton"
-        android:layout_width="wrap_content"
+
+    <TextView
+        android:id="@+id/tasksName"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Рандомное задание"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true" />
+        android:text="Задания"
+        android:gravity="center"
+        android:textSize="25sp"
+        android:textColor="#FFFFFF"/>
 
-    <!-- Кнопка для ежедневного задания -->
-    <Button
-        android:id="@+id/dailyButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ежедневное задание"
-        android:layout_toEndOf="@id/randomButton"
-        android:layout_alignTop="@id/randomButton" />
+    <LinearLayout
+        android:id="@+id/twoButt"
+        android:layout_below="@id/tasksName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/randomButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Рандомное задание" />
 
-    <!-- Список тем -->
+        <Button
+            android:id="@+id/dailyButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ежедневное задание" />
+
+    </LinearLayout>
+
+
     <ListView
         android:id="@+id/topicsListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/randomButton"
+        android:layout_below="@id/twoButt"
         android:layout_marginTop="16dp"/>
 
-    <!-- Кнопка для создания квеста -->
     <Button
         android:id="@+id/createQuestButton"
         android:layout_width="wrap_content"

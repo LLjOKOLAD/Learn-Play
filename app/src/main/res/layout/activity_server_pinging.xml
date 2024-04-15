@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ServerPinging">
+
+    <TextView
+        android:id="@+id/servText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:textSize="20sp"
+        android:padding="10dp"
+        android:layout_centerHorizontal="true"
+        android:text="ABOBA"/>
+
+    <EditText
+        android:id="@+id/ipName"
+        android:layout_alignBottom="@+id/pingServ"
+        android:layout_centerHorizontal="true"
+        android:textSize="15dp"
+        android:layout_marginBottom="100dp"
+        android:text="http://learnplayback.ddns.net:8080/getTask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/pingServ"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="Ping" />
+
+
+
+
+
+
+
+
+
+
+
+
+</RelativeLayout>

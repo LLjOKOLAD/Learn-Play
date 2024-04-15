@@ -3,6 +3,8 @@ plugins {
     id("org.jetbrains.kotlin.android")
 }
 
+
+
 android {
     namespace = "com.example.learnplay"
     compileSdk = 34
@@ -43,6 +45,7 @@ dependencies {
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
+    implementation("androidx.activity:activity:1.8.2")
     testImplementation("junit:junit:4.13.2")
     implementation ("androidx.navigation:navigation-fragment-ktx:2.7.7")
     implementation ("androidx.navigation:navigation-ui-ktx:2.7.7")
@@ -50,9 +53,10 @@ dependencies {
     implementation ("com.mig35:carousellayoutmanager:1.4.6")
     implementation ("com.github.bumptech.glide:glide:4.12.0")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")
-
-
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    implementation ("com.github.gregcockroft:AndroidMath:ALPHA")
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.google.code.gson:gson:2.10.1")
 
 }

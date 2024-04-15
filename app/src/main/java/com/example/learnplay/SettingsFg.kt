@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
+import com.agog.mathdisplay.MTMathView
 
 class SettingsFg : Fragment() {
 
@@ -73,6 +74,31 @@ class SettingsFg : Fragment() {
                 user.experience = exp
                 db.updateUser(user)
             }
+
+            val stButton: Button = view.findViewById(R.id.startTasks)
+
+            stButton.setOnClickListener {
+                val intent = Intent(requireContext(),TasksChallenging::class.java)
+                startActivity(intent)
+            }
+
+            val pgButton: Button = view.findViewById(R.id.startPing)
+
+            pgButton.setOnClickListener{
+                val intent = Intent(requireContext(),ServerPinging::class.java)
+                startActivity(intent)
+            }
+
+            val mathview: MTMathView =view.findViewById(R.id.mathView)
+            mathview.fontSize = 150f
+
+
+            mathview.latex = "x = \\frac{-b \\pm \\sqrt{b^2-4ac}}{2a}"
+            mathview.latex = "-2(x-4)=0,8"
+            mathview.latex = "1)  \\frac{n}{m}>0"
+
+
+
         }
         db.close()
 

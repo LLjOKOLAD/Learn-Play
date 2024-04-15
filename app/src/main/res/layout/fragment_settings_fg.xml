@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="Settings" />
+
 <RelativeLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
@@ -44,6 +45,30 @@
         android:layout_height="wrap_content"
         android:text="take50exp"
         tools:ignore="MissingConstraints" />
+
+    <Button
+        android:layout_below="@id/take50exp"
+        android:id="@+id/startTasks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start tasks"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:layout_below="@id/startTasks"
+        android:id="@+id/startPing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start ping"
+        tools:ignore="MissingConstraints" />
+
+    <com.agog.mathdisplay.MTMathView
+        android:id="@+id/mathView"
+        android:layout_marginTop="50dp"
+
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:layout_below="@+id/startPing" />
 
 
 </RelativeLayout>
