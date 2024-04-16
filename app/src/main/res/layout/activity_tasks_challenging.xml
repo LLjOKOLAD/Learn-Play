@@ -1,65 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <ImageView
+        android:src="@drawable/back_task"
+        android:scaleType="centerCrop"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
     <TextView
         android:id="@+id/textNameQuestion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="#FFFFFF"
         android:text="Задание 1"
         android:textSize="18sp"
         android:padding="16dp"/>
-
-    <TextView
-        android:id="@+id/textViewQuestion"
+    <RelativeLayout
+        android:id="@+id/taskLay"
+        android:layout_below="@+id/textNameQuestion"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textNameQuestion"
-        android:text="Выберите один или несколько правильных ответов.\n1) Площадь квадрата равна произведению двух его смежных сторон. \n2) Диагональ трапеции делит её на два равных треугольника. \n3) Если две стороны одного треугольника соответственно равны двум сторонам другого треугольника, то такие треугольники равны."
-        android:textSize="15sp"
-        android:padding="16dp"/>
+        android:layout_height="wrap_content">
+        <androidx.cardview.widget.CardView
+            app:cardBackgroundColor="#251135"
+            app:cardCornerRadius="20dp"
+            android:layout_marginHorizontal="10dp"
+            android:id="@+id/textViewQuestioncard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/textViewQuestion"
+                android:textColor="#FFFFFF"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textNameQuestion"
+                android:text="Выберите один или несколько правильных ответов.\n1) Площадь квадрата равна произведению двух его смежных сторон. \n2) Диагональ трапеции делит её на два равных треугольника. \n3) Если две стороны одного треугольника соответственно равны двум сторонам другого треугольника, то такие треугольники равны."
+                android:textSize="15sp"
+                android:padding="16dp"/>
 
-    <RadioGroup
-        android:id="@+id/radioGroupAnswers"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textViewQuestion"
-        android:orientation="vertical"
-        android:padding="16dp"/>
+        </androidx.cardview.widget.CardView>
 
-    <EditText
-        android:id="@+id/editTextAnswer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/radioGroupAnswers"
-        android:hint="Введите ответ"
-        android:inputType="text"/>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/editAnswers"
+            android:layout_below="@+id/textViewQuestioncard"
+            app:cardCornerRadius="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RadioGroup
+                android:id="@+id/radioGroupAnswers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewQuestioncard"
+                android:orientation="vertical"
+                android:padding="16dp"/>
 
-    <Button
-        android:id="@+id/buttonConfirm"
+            <EditText
+                android:padding="10dp"
+                android:layout_marginHorizontal="8dp"
+                android:id="@+id/editTextAnswer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/radioGroupAnswers"
+                android:hint="Введите ответ"
+                android:inputType="text"/>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <Button
+            android:id="@+id/buttonConfirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/editAnswers"
+            android:layout_alignParentEnd="true"
+            android:text="Подтвердить"/>
+
+        <TextView
+            android:id="@+id/textViewResult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/buttonConfirm"
+            android:layout_alignParentEnd="true"
+            android:textSize="18sp"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/buttonNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewResult"
+            android:layout_alignParentEnd="true"
+            android:text="Далее"
+            android:visibility="gone"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_alignParentBottom="true"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editTextAnswer"
-        android:layout_alignParentEnd="true"
-        android:text="Подтвердить"/>
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@drawable/ic_archer_1"
+            android:layout_width="180dp"
+            android:layout_height="280dp"/>
+    </RelativeLayout>
 
-    <TextView
-        android:id="@+id/textViewResult"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/buttonConfirm"
+    <RelativeLayout
+        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:textSize="18sp"
-        android:visibility="gone"/>
+        android:layout_width="wrap_content"
+        android:layout_marginBottom="80dp"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@drawable/ic_skeleton_1"
+            android:scaleX="-1"
+            android:layout_width="220dp"
+            android:layout_height="280dp"/>
 
-    <Button
-        android:id="@+id/buttonNext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textViewResult"
-        android:layout_alignParentEnd="true"
-        android:text="Далее"
-        android:visibility="gone"/>
+    </RelativeLayout>
+
 
 </RelativeLayout>

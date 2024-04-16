@@ -1,5 +1,6 @@
 package com.example.learnplay
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -21,9 +22,9 @@ class TasksChallenging : AppCompatActivity() {
 
     private var currentQuestionIndex = 0
     private val questions = listOf(
-        Question("Вопрос 1", listOf("Ответ 1", "Ответ 2", "Ответ 3"), "Ответ 1"),
+        Question("Да", listOf("Ответ 1", "Ответ 2", "Ответ 3"), "Ответ 1"),
         Question("Вопрос 2", listOf("Ответ 1", "Ответ 2", "Ответ 3"), "Правильный ответ 2"),
-        Question("Вопрос 3", listOf("Ответ 1", "Ответ 2", "Ответ 3"), "Правильный ответ 3"),
+        Question("Вопрос 3", listOf(), "Правильный ответ 3"),
         // Добавьте остальные вопросы сюда
     )
 
@@ -73,11 +74,24 @@ class TasksChallenging : AppCompatActivity() {
 
     private fun checkAnswer() {
         val question = questions[currentQuestionIndex]
-        val selectedAnswerIndex = radioGroupAnswers.checkedRadioButtonId
-        val selectedAnswer = if (selectedAnswerIndex != -1) questions[currentQuestionIndex].options[selectedAnswerIndex] else ""
-        val userAnswer = if (selectedAnswerIndex != -1) selectedAnswer else editTextAnswer.text.toString()
+        var userAnswer: String
+        if (question.options.isEmpty()){
+            userAnswer = editTextAnswer.text.toString()
+        }
+        else{
+            val selectedAnswerIndex = radioGroupAnswers.checkedRadioButtonId
+            userAnswer = questions[currentQuestionIndex].options[selectedAnswerIndex]
+        }
 
-        val result = if (userAnswer == question.answer) "Правильно!" else "Неправильно!"
+
+        val result: String = if (userAnswer == question.answer) {
+            textViewResult.setTextColor(Color.parseColor("#31FA11"))
+            "Правильно!"
+        } else {
+            textViewResult.setTextColor(Color.parseColor("#EE0606"))
+            "Неправильно!"
+        }
+
         textViewResult.text = result
         textViewResult.visibility = View.VISIBLE
 
