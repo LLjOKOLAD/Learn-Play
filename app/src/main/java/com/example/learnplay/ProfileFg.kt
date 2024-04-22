@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -39,15 +40,27 @@ class ProfileFg : Fragment() {
 
         val db = DbHelper(requireContext(),null)
         val user = db.getLogUser()
+        val view = inflater.inflate(R.layout.fragment_profile_fg, container, false)
 
 
         if (user != null && user.character.isEmpty()) {
             val intent = Intent(requireContext(), CharacterSelectionActivity::class.java)
             startActivity(intent)
         }
+        else{
+            val userAva: ImageView = view.findViewById(R.id.avatarImageView)
+            if (user != null) {
+                val resourceName = user.character
+                Log.d("Prof","$resourceName")
+                val parts = resourceName.split(".")
+                val drawableName = parts[parts.size - 1]
+                val resId = resources.getIdentifier(drawableName, "drawable", this.toString())
+                userAva.setImageResource(resId)
+            }
+        }
 
         //Код для достижений
-        val view = inflater.inflate(R.layout.fragment_profile_fg, container, false)
+
         val recyclerView: RecyclerView = view.findViewById(R.id.recyclerViewAchievements)
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.adapter = AchievementAdapter(getAchievements())
@@ -65,11 +78,10 @@ class ProfileFg : Fragment() {
 
         // Устанавливаем слушатель кликов на TextView
         textView.setOnClickListener {
-            // Скрываем TextView и показываем EditText
             textView.visibility = View.INVISIBLE
             editText.visibility = View.VISIBLE
             editText.setText(textView.text.toString())
-            editText.requestFocus() // Переводим фокус на EditText
+            editText.requestFocus()
         }
 
         // Обработчик события нажатия клавиши "Готово" на клавиатуре
@@ -140,8 +152,6 @@ class ProfileFg : Fragment() {
 
 
     private fun getAchievements(): List<Achievement> {
-        // Загрузка данных для списка достижений (например, из базы данных или ресурсов)
-        // Возвращайте список объектов типа Achievement
         return listOf(
             Achievement("Достижение 1", "Описание достижения 1", 50,100),
             Achievement("Достижение 2", "Описание достижения 2", 30,100)

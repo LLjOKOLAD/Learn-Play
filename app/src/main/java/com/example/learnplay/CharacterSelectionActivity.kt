@@ -1,46 +1,69 @@
 package com.example.learnplay
 
+// CharacterSelectionActivity.kt
+
 import android.content.Intent
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.VectorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
-import android.widget.ImageView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
 import androidx.viewpager2.widget.ViewPager2
 
 class CharacterSelectionActivity : AppCompatActivity() {
 
     private lateinit var viewPagerCharacter: ViewPager2
-    private val characters = listOf(R.drawable.ic_archer_1, R.drawable.ic_archer_2, R.drawable.ic_archer_3)
+    private lateinit var buttonSelectCharacter: Button
+    private lateinit var characterPagerAdapter: CharacterPagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_character_selection)
 
         viewPagerCharacter = findViewById(R.id.viewPagerCharacter)
-        viewPagerCharacter.adapter = CharacterAdapter(characters)
-        viewPagerCharacter.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-
+        buttonSelectCharacter = findViewById(R.id.buttonSelectCharacter)
 
         val db = DbHelper(this,null)
         val user = db.getLogUser()
 
-        val buttonSelect: Button = findViewById(R.id.buttonSelect)
-        buttonSelect.setOnClickListener {
-            if (user != null) {
-                user.character = "1"
-                db.updateUser(user)
+        // Создание списка персонажей
+        val characterList = createCharacterList()
+
+        // Создание и настройка адаптера
+        characterPagerAdapter = CharacterPagerAdapter(characterList)
+        viewPagerCharacter.adapter = characterPagerAdapter
+
+        buttonSelectCharacter.setOnClickListener {
+            // Получение выбранного персонажа из адаптера
+            val selectedCharacter = characterPagerAdapter.getSelectedCharacter(viewPagerCharacter.currentItem)
+            // Обработка выбранного персонажа
+            // Например, вы можете передать его ID в drawable
+            selectedCharacter?.let { character ->
+                val selectedCharacterId = character.imageResId
+                if (user != null) {
+                    user.character = selectedCharacterId.toString()
+                    db.updateUser(user)
+                }
+                Log.d("CharSelct","Name $selectedCharacterId")
+                val intent = Intent(this,MainProfile::class.java)
+                startActivity(intent)
             }
-            Toast.makeText(this,"Name: $Char", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, MainProfile::class.java)
-            startActivity(intent)
         }
     }
 
-
-
+    // Метод для создания списка персонажей
+    private fun createCharacterList(): List<Character> {
+        // Ваша логика создания списка персонажей
+        // Здесь просто пример для наглядности
+        return listOf(
+            Character(R.drawable.ic_archer_1, "Character 1"),
+            Character(R.drawable.ic_archer_2, "Character 2"),
+            Character(R.drawable.ic_archer_3, "Character 3")
+        )
+    }
 }
+
+data class Character(val imageResId: Int, val name: String)
+
+
+
 
