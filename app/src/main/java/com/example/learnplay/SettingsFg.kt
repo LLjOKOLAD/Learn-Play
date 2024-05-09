@@ -1,16 +1,21 @@
 package com.example.learnplay
 
+
+
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.autofill.AutofillValue
 import android.widget.Button
 import android.widget.Toast
-import com.agog.mathdisplay.MTMathView
+import androidx.fragment.app.Fragment
+import com.zanvent.mathview.MathView
+
 
 class SettingsFg : Fragment() {
 
@@ -31,8 +36,8 @@ class SettingsFg : Fragment() {
 
         val user = db.getLogUser()
 
-        if (user != null){
-            val button : Button = view.findViewById(R.id.ch_button)
+        if (user != null) {
+            val button: Button = view.findViewById(R.id.ch_button)
             button.setOnClickListener {
                 Toast.makeText(
                     requireContext(),
@@ -41,14 +46,14 @@ class SettingsFg : Fragment() {
                 ).show()
             }
 
-            val lgOutButton : Button = view.findViewById(R.id.lg_out_button)
+            val lgOutButton: Button = view.findViewById(R.id.lg_out_button)
 
             lgOutButton.setOnClickListener {
 
-                db.LogUser(user.login,"False")
+                db.LogUser(user.email, "False")
                 db.close()
 
-                val intent = Intent(requireContext(),MainActivity::class.java)
+                val intent = Intent(requireContext(), MainActivity::class.java)
                 startActivity(intent)
             }
 
@@ -65,10 +70,9 @@ class SettingsFg : Fragment() {
 
             takeBut.setOnClickListener {
                 var exp = user.experience
-                if(exp < 50){
+                if (exp < 50) {
                     exp = 0
-                }
-                else{
+                } else {
                     exp -= 50
                 }
                 user.experience = exp
@@ -78,28 +82,60 @@ class SettingsFg : Fragment() {
             val stButton: Button = view.findViewById(R.id.startTasks)
 
             stButton.setOnClickListener {
-                val intent = Intent(requireContext(),TasksChallenging::class.java)
+                val intent = Intent(requireContext(), TasksChallenging::class.java)
                 startActivity(intent)
             }
 
             val pgButton: Button = view.findViewById(R.id.startPing)
 
-            pgButton.setOnClickListener{
-                val intent = Intent(requireContext(),ServerPinging::class.java)
+            pgButton.setOnClickListener {
+                val intent = Intent(requireContext(), ServerPinging::class.java)
                 startActivity(intent)
             }
 
-            val mathview: MTMathView =view.findViewById(R.id.mathView)
-            mathview.fontSize = 150f
 
 
-            mathview.latex = "x = \\frac{-b \\pm \\sqrt{b^2-4ac}}{2a}"
-            mathview.latex = "-2(x-4)=0,8"
-            mathview.latex = "1)  \\frac{n}{m}>0"
+
+            val mathview: MathView = view.findViewById(R.id.mathView1)
+            val mathview2: MathView = view.findViewById(R.id.mathView2)
+            mathview.text = "<p>Найдите значение выражения: \$2,7/(1- 4/13)\$</p>"
+            mathview.pixelScaleType = MathView.Scale.SCALE_DP
+            mathview.setTextSize(16)
+
+            mathview.textAlignment = View.TEXT_ALIGNMENT_TEXT_START
+            val tp = mathview.textAlignment
+            Log.d("Math",tp.toString())
+
+            mathview.textColor = "#111111"
 
 
+            mathview2.text = "<div align=\\\"left\\\"> <p>Для объектов, указанных в таблице, определите, какими цифрами они обозначены на плане. Заполните таблицу, в ответ перенесите последовательность четырёх цифр без пробелов, запятых и других дополнительных символов.<br>\n" +
+                    "<table>\n" +
+                    "\t<tbody>\n" +
+                    "\t\t<tr>\n" +
+                    "\t\t\t<td>Гараж</td>\n" +
+                    "\t\t\t<td>Цветник</td>\n" +
+                    "\t\t\t<td>Гамаки</td>\n" +
+                    "\t\t\t<td>Жилой дом</td>\n" +
+                    "\t\t</tr>\n" +
+                    "\t\t<tr>\n" +
+                    "\t\t\t<td></td>\n" +
+                    "\t\t\t<td></td>\n" +
+                    "\t\t\t<td></td>\n" +
+                    "\t\t\t<td></td>\n" +
+                    "\t\t</tr>\n" +
+                    "\t</tbody>\n" +
+                    "</table></p></div>"
+            mathview2.pixelScaleType = MathView.Scale.SCALE_DP
+            mathview2.setTextSize(16)
+            mathview2.textColor = "#111111"
 
         }
+
+
+
+
+
         db.close()
 
         return view

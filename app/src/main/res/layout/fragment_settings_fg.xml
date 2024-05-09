@@ -62,13 +62,29 @@
         android:text="Start ping"
         tools:ignore="MissingConstraints" />
 
-    <com.agog.mathdisplay.MTMathView
-        android:id="@+id/mathView"
-        android:layout_marginTop="50dp"
+<RelativeLayout
+    android:layout_below="@+id/startPing"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
-        android:layout_width="300dp"
-        android:layout_height="200dp"
-        android:layout_below="@+id/startPing" />
+    <com.zanvent.mathview.MathView
+        android:id="@+id/mathView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <com.zanvent.mathview.MathView
+        android:id="@+id/mathView2"
+        android:layout_below="@id/mathView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>
+
+
+
+
+
+
 
 
 </RelativeLayout>

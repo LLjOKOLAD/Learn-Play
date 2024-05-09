@@ -67,10 +67,10 @@ class DbHelper(val context: Context,val factory: SQLiteDatabase.CursorFactory?) 
     }
 
 
-    fun getUser(login: String, pass: String) : Boolean{
+    fun getUser(email: String, pass: String) : Boolean{
         val db = this.readableDatabase
-        val selection = "login = ? AND pass = ?"
-        val selectionArgs = arrayOf(login, pass)
+        val selection = "email = ? AND pass = ?"
+        val selectionArgs = arrayOf(email, pass)
         val cursor = db.query("users", null, selection, selectionArgs, null, null, null)
         val result = cursor.moveToFirst()
         cursor.close()
@@ -78,13 +78,13 @@ class DbHelper(val context: Context,val factory: SQLiteDatabase.CursorFactory?) 
         return result
     }
 
-    fun LogUser(login: String, log_st: String){
+    fun LogUser(email: String, log_st: String){
         val db = this.writableDatabase
         val cv = ContentValues().apply {
             put("log_st", log_st)
         }
-        val selection = "login = ?"
-        val selectionArgs = arrayOf(login)
+        val selection = "email = ?"
+        val selectionArgs = arrayOf(email)
         db.update("users", cv, selection, selectionArgs)
         db.close()
 

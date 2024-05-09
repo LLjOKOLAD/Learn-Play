@@ -38,7 +38,7 @@
         />
 
     <EditText
-        android:id="@+id/user_login_auth"
+        android:id="@+id/user_email_auth"
         android:layout_width="280dp"
         android:layout_height="50dp"
         android:ems="10"
@@ -47,7 +47,8 @@
         android:textColorHint="#6a6a6a"
         android:layout_marginTop="20dp"
         android:layout_gravity="center"
-        android:hint="Логин" />
+        android:hint="Почта"
+        tools:ignore="TextFields" />
 
 
 
