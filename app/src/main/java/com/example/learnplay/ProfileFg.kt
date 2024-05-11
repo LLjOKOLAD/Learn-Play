@@ -42,6 +42,14 @@ class ProfileFg : Fragment() {
         val user = db.getLogUser()
         val view = inflater.inflate(R.layout.fragment_profile_fg, container, false)
 
+        if (user != null) {
+            Log.d("Profile",user.login)
+            Log.d("Profile",user.log_st)
+        }
+        else{
+            Log.d("Profile", "user is empty")
+        }
+
 
         if (user != null && user.character.isEmpty()) {
             val intent = Intent(requireContext(), CharacterSelectionActivity::class.java)

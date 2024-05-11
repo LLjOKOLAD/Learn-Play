@@ -29,17 +29,35 @@ class DbHelper(val context: Context,val factory: SQLiteDatabase.CursorFactory?) 
     }
 
 
-
-    fun addUser(user: User){
+    fun addNewUser(name:String, email: String, pass: String){
         val values = ContentValues()
-        values.put("login",user.login)
-        values.put("email",user.email)
-        values.put("pass",user.pass)
-        values.put("name",user.name)
-        values.put("log_st",user.log_st)
-        values.put("multiplier",user.multiplier)
-        values.put("experience",user.experience)
-        values.put("character",user.character)
+        values.put("login", name)
+        values.put("email",email)
+        values.put("pass",pass)
+        values.put("name",name)
+        values.put("log_st","True")
+        values.put("multiplier",1f)
+        values.put("experience",0)
+        values.put("character", "")
+
+        val db =this.writableDatabase
+        db.insert("users",null, values)
+
+        db.close()
+    }
+
+
+
+    fun addUser(email:String, pass: String){
+        val values = ContentValues()
+        values.put("login","")
+        values.put("email",email)
+        values.put("pass",pass)
+        values.put("name","")
+        values.put("log_st","True")
+        values.put("multiplier",1f)
+        values.put("experience",0)
+        values.put("character","")
 
         val db =this.writableDatabase
         db.insert("users",null, values)
@@ -115,6 +133,7 @@ class DbHelper(val context: Context,val factory: SQLiteDatabase.CursorFactory?) 
         } else {
             null
         }
+        Log.d("DbHelper",user.toString())
         cursor.close()
         db.close()
         return user

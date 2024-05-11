@@ -13,12 +13,41 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import android.content.SharedPreferences
+import android.os.Handler
+import android.util.Log
 import androidx.fragment.app.Fragment
 
 class MainProfile : AppCompatActivity() {
 
+    val handler = Handler()
+
+    private val runnable = object : Runnable {
+        override fun run() {
+            // Ваш код, который нужно выполнять периодически
+            Log.d("MainProfile","Repeat")
+            handler.postDelayed(this, INTERVAL_MILLISECONDS)
+        }
+    }
+
+    fun startRepeatingTask() {
+        handler.post(runnable)
+    }
+
+    fun stopRepeatingTask() {
+        handler.removeCallbacks(runnable)
+    }
+
+    companion object {
+        private const val INTERVAL_MILLISECONDS: Long = 5000
+    }
+
+
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_main_profile)
 
 
@@ -31,6 +60,11 @@ class MainProfile : AppCompatActivity() {
                 R.id.learningFg -> {
                     // Навигация к фрагменту настроек
                     navController.navigate(R.id.learningFg)
+                    true
+                }
+
+                R.id.ratingFg ->{
+                    navController.navigate(R.id.ratingFg)
                     true
                 }
 

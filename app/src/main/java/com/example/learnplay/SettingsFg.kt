@@ -17,6 +17,12 @@ import androidx.fragment.app.Fragment
 import com.zanvent.mathview.MathView
 
 
+
+
+
+
+
+
 class SettingsFg : Fragment() {
 
     companion object {
@@ -97,40 +103,17 @@ class SettingsFg : Fragment() {
 
 
             val mathview: MathView = view.findViewById(R.id.mathView1)
-            val mathview2: MathView = view.findViewById(R.id.mathView2)
             mathview.text = "<p>Найдите значение выражения: \$2,7/(1- 4/13)\$</p>"
             mathview.pixelScaleType = MathView.Scale.SCALE_DP
             mathview.setTextSize(16)
-
-            mathview.textAlignment = View.TEXT_ALIGNMENT_TEXT_START
-            val tp = mathview.textAlignment
-            Log.d("Math",tp.toString())
-
             mathview.textColor = "#111111"
 
 
-            mathview2.text = "<div align=\\\"left\\\"> <p>Для объектов, указанных в таблице, определите, какими цифрами они обозначены на плане. Заполните таблицу, в ответ перенесите последовательность четырёх цифр без пробелов, запятых и других дополнительных символов.<br>\n" +
-                    "<table>\n" +
-                    "\t<tbody>\n" +
-                    "\t\t<tr>\n" +
-                    "\t\t\t<td>Гараж</td>\n" +
-                    "\t\t\t<td>Цветник</td>\n" +
-                    "\t\t\t<td>Гамаки</td>\n" +
-                    "\t\t\t<td>Жилой дом</td>\n" +
-                    "\t\t</tr>\n" +
-                    "\t\t<tr>\n" +
-                    "\t\t\t<td></td>\n" +
-                    "\t\t\t<td></td>\n" +
-                    "\t\t\t<td></td>\n" +
-                    "\t\t\t<td></td>\n" +
-                    "\t\t</tr>\n" +
-                    "\t</tbody>\n" +
-                    "</table></p></div>"
-            mathview2.pixelScaleType = MathView.Scale.SCALE_DP
-            mathview2.setTextSize(16)
-            mathview2.textColor = "#111111"
+
 
         }
+
+
 
 
 

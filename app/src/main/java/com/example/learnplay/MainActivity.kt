@@ -2,6 +2,7 @@ package com.example.learnplay
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -11,13 +12,21 @@ import android.widget.EditText
 import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
+import org.json.JSONObject
+import java.io.DataOutputStream
+import java.net.HttpURLConnection
+import java.net.URL
 
 
-class MainActivity : AppCompatActivity(), OnServerResponseListener {
+class MainActivity : AppCompatActivity(){
 
-    var email1 = ""
-    var pass1 = ""
-    val sca = ServerConnectionAuth(this)
+    private var name1 = ""
+    private var email1 = ""
+    private var pass1 = ""
+    var result1 = ""
+
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +47,8 @@ class MainActivity : AppCompatActivity(), OnServerResponseListener {
         val user : User? = db.getLogUser()
         db.close()
         if(user != null){
+            val au = AuthActivity()
+            au.authUser(user.email,user.pass,false)
             val intent = Intent(this, MainProfile::class.java)
             startActivity(intent)
         }
@@ -51,11 +62,6 @@ class MainActivity : AppCompatActivity(), OnServerResponseListener {
         }
 
 
-        val sc = ServerConnection(this)
-
-
-
-
 
         button.setOnClickListener {
             val login = userLogin.text.toString().trim()
@@ -63,6 +69,7 @@ class MainActivity : AppCompatActivity(), OnServerResponseListener {
             val pass = userPass.text.toString().trim()
             val passRep = userPassRep.text.toString().trim()
 
+            name1 = login
             email1 = email
             pass1 = pass
 
@@ -73,7 +80,7 @@ class MainActivity : AppCompatActivity(), OnServerResponseListener {
                 Toast.makeText(this,"Не все поля заполнены",Toast.LENGTH_SHORT).show()
             else {
                 if (pass == passRep) {
-                    sc.sendPost(login,email,pass)
+                    sendPost(login,email,pass)
                 }
                 else{
                     Toast.makeText(this,"Пароли не совпадают",Toast.LENGTH_SHORT).show()
@@ -83,21 +90,87 @@ class MainActivity : AppCompatActivity(), OnServerResponseListener {
 
     }
 
-    override fun onServerResponseReceived(result: String) {
-        val auth = AuthActivity()
+    fun sendPost(name:String, email:String, pass:String) {
+        val userData = JSONObject()
+        userData.put("name", name)
+        userData.put("email", email)
+        userData.put("password", pass)
+        FetchDataTask(this).execute(userData.toString())
+    }
 
-        Log.d("Server response main", result)
+    class FetchDataTask(private val activity: MainActivity) : AsyncTask<String, Void, String>() {
 
-        if(result == "201"){
-            Toast.makeText(this,"Регистрация успешна!", Toast.LENGTH_SHORT).show()
-            sca.sendPost(email1,pass1)
-            val intent = Intent(this, MainProfile::class.java)
-            startActivity(intent)
+        private val TIMEOUT_MS = 5000
+        private val API_URL = "http://192.168.0.101:8080/registration/addUser"
+
+        override fun doInBackground(vararg params: String): String {
+            var result = ""
+            try {
+                val jsonData = params[0]
+
+                val url = URL(API_URL)
+                val connection = url.openConnection() as HttpURLConnection
+                connection.requestMethod = "POST"
+                connection.connectTimeout = TIMEOUT_MS
+
+                connection.doOutput = true
+                connection.setRequestProperty("Content-Type", "application/json")
+
+                val outputStream = DataOutputStream(connection.outputStream)
+                outputStream.write(jsonData.toByteArray(Charsets.UTF_8))
+                outputStream.flush()
+                outputStream.close()
+
+                val responseCode = connection.responseCode
+
+                result = "$responseCode"
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+                result = "Error: ${e.message}"
+            }
+            return result
         }
-        else{
-            Toast.makeText(this,"Пользователь с таким email уже существует",Toast.LENGTH_SHORT).show()
+
+        override fun onPostExecute(result: String?) {
+            super.onPostExecute(result)
+            if (result != null) {
+                val result1 = result.toString()
+                Log.d("Server response", result1)
+                if (result1 == "201") {
+                    Log.d("Server", "Vse rabotaet")
+                    activity.succEnter(true)
+                }
+                else if (result1.startsWith("Error")){
+                    activity.connError()
+                }
+                else {
+                    Log.d("Server","Cheto ne tak")
+                    activity.succEnter(false)
+                }
+            }
         }
     }
 
+    fun connError(){
+        Toast.makeText(this,"Ошибка соединения с сервером",Toast.LENGTH_SHORT).show()
+    }
 
+    fun succEnter(yes:Boolean){
+        if(yes){
+            Toast.makeText(this,"Регистрация успешна!", Toast.LENGTH_SHORT).show()
+            val db = DbHelper(this, null)
+            db.addNewUser(name1, email1, pass1)
+            Log.d("Register",db.getUser(email1,pass1).toString())
+            db.close()
+            val au = AuthActivity()
+            au.authUser(email1,pass1,false)
+            val intent = Intent(this, MainProfile::class.java)
+            startActivity(intent)
+
+        }
+        else{
+            Toast.makeText(this,"Пользователь с таким email уже существует!",Toast.LENGTH_SHORT).show()
+        }
+    }
 }

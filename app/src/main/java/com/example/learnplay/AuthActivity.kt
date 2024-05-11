@@ -1,6 +1,7 @@
 package com.example.learnplay
 
 import android.content.Intent
+import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -8,12 +9,20 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import java.io.DataOutputStream
+import java.lang.ref.WeakReference
+import java.net.HttpURLConnection
+import java.net.URL
 
-class AuthActivity : AppCompatActivity(), OnServerResponseListener {
-    val sca = ServerConnectionAuth(this)
+class AuthActivity : AppCompatActivity() {
 
-    fun authUser(email:String, pass:String){
-        sca.sendPost(email,pass)
+    private var notif:Boolean = false
+
+    private var email1: String = ""
+    private var pass1: String = ""
+    fun authUser(email:String, pass:String, noti:Boolean){
+        notif = noti
+        sendPost(email,pass)
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,10 +42,74 @@ class AuthActivity : AppCompatActivity(), OnServerResponseListener {
             val email = userEmail.text.toString().trim()
             val pass = userPass.text.toString().trim()
 
+            email1 = email
+
             if(email == ""|| pass == "" )
                 Toast.makeText(this,"Не все поля заполнены", Toast.LENGTH_SHORT).show()
             else {
-                authUser(email,pass)
+                authUser(email,pass,true)
+            }
+        }
+    }
+
+    fun sendPost(email:String, pass:String) {
+        val userData = "username=${email}&password=${pass}"
+        FetchDataTask(this).execute(userData)
+    }
+
+    class FetchDataTask(private val activity: AuthActivity) : AsyncTask<String, Void, String>() {
+
+        private val activityReference = WeakReference(activity)
+
+        private val TIMEOUT_MS = 5000
+        private val API_URL = "http://192.168.0.101:8080/entry"
+
+        override fun doInBackground(vararg params: String): String {
+            var result = ""
+            try {
+                val jsonData = params[0]
+
+                val url = URL(API_URL)
+                val connection = url.openConnection() as HttpURLConnection
+                connection.requestMethod = "POST"
+                connection.connectTimeout = TIMEOUT_MS
+
+                connection.doOutput = true
+                connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded")
+
+                val outputStream = DataOutputStream(connection.outputStream)
+                outputStream.write(jsonData.toByteArray(Charsets.UTF_8))
+                outputStream.flush()
+                outputStream.close()
+
+                val responseCode = connection.responseCode
+
+
+                result = "$responseCode"
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+                result = "Error: ${e.message}"
+            }
+            return result
+        }
+
+        override fun onPostExecute(result: String?) {
+            super.onPostExecute(result)
+            val activity = activityReference.get()
+            if (activity != null) {
+                if (result != null) {
+                    val result1 = result.toString()
+                    Log.d("Server response auth", result1)
+                    if (result1 == "200") {
+                        Log.d("Server auth", "Vse rabotaet")
+                        activity.authSucc(true)
+
+                    } else {
+                        Log.d("Server auth", "Cheto ne tak")
+                        activity.authSucc(false)
+                    }
+                }
             }
         }
     }
@@ -44,18 +117,28 @@ class AuthActivity : AppCompatActivity(), OnServerResponseListener {
 
 
 
-    override fun onServerResponseReceived(result: String) {
+    fun authSucc(yes:Boolean){
+        if(yes){
+            if(notif){
+                Toast.makeText(this,"Вход успешен!", Toast.LENGTH_SHORT).show()
+                val db = DbHelper(this,null)
+                Log.d("Authentication", db.getUser(email1,pass1).toString())
+                if(!db.getUser(email1,pass1)){
+                    db.addUser(email1,pass1)
+                }
+                else{
+                    db.LogUser(email1,"True")
+                }
 
-
-        Log.d("Server auth response main", result)
-
-        if(result == "200"){
-            Toast.makeText(this,"Вход успешен!", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, MainProfile::class.java)
-            startActivity(intent)
+                val intent = Intent(this, MainProfile::class.java)
+                startActivity(intent)
+            }
         }
         else{
-            Toast.makeText(this,"Неверные почта или пароль!",Toast.LENGTH_SHORT).show()
+            if(notif){
+                Toast.makeText(this,"Неверные почта или пароль!",Toast.LENGTH_SHORT).show()
+            }
         }
     }
+
 }

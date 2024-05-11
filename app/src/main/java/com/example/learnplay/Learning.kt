@@ -37,10 +37,10 @@ class Learning : Fragment() {
 
 
         val sectionItems = mutableListOf(
-            SectionItem("Раздел 1", "Клартиры и садовые участки",R.drawable.map_reg_button),
-            SectionItem("Раздел 2", "Автомобили",R.drawable.map_reg_dess_button),
-            SectionItem("Раздел 3", "Компьютеры",R.drawable.map_reg_dess_button),
-            SectionItem("Раздел 4", "Телефоны",R.drawable.map_reg_button)
+            SectionItem("Раздел 1", "Клартиры и садовые участки",R.drawable.map_reg_button,5),
+            SectionItem("Раздел 2", "Автомобили",R.drawable.map_reg_dess_button,5),
+            SectionItem("Раздел 3", "Компьютеры",R.drawable.map_reg_dess_button,1),
+            SectionItem("Раздел 4", "Телефоны",R.drawable.map_reg_button,0)
         )
 
         val adapter = SectionAdapter(sectionItems, object : SectionAdapter.OnButtonClickListener {

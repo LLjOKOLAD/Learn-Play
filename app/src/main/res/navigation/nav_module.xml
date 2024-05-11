@@ -25,4 +25,10 @@
         android:name="com.example.learnplay.Tasks"
         android:label="fragment_tasks"
         tools:layout="@layout/fragment_tasks" />
+    <fragment
+        android:id="@+id/ratingFg"
+        android:name="com.example.learnplay.Rating"
+        android:label="fragment_rating"
+        tools:layout="@layout/fragment_rating" />
+
 </navigation>

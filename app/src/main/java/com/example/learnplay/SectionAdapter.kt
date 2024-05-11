@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
@@ -25,6 +26,18 @@ class SectionAdapter(
         R.id.map_but_9
     )
 
+    private val buttonIdsnum = listOf(
+        R.id.map_but_1_num,
+        R.id.map_but_2_num,
+        R.id.map_but_3_num,
+        R.id.map_but_3_num,
+        R.id.map_but_4_num,
+        R.id.map_but_5_num,
+        R.id.map_but_6_num,
+        R.id.map_but_6_num,
+        R.id.map_but_7_num,
+    )
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SectionViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_section, parent, false)
         return SectionViewHolder(view)
@@ -34,16 +47,33 @@ class SectionAdapter(
         val sectionItem = sectionItems[position]
         holder.textViewSection.text = sectionItem.sectionName
         holder.textViewSubsection.text = sectionItem.description
+        val step = sectionItem.step - 1
+
         for (i in buttonIds.indices) {
-            if (i != 3 && i != 7){
-                holder.buttons[i].setImageResource(sectionItem.buttSkin)
+            if(i<=step){
+                if (i != 3 && i != 7){
+                    holder.buttons[i].setImageResource(sectionItem.buttSkin)
+                }
             }
+            else if(i == 3 || i==7){
+                holder.buttons[i].setImageResource(R.drawable.ic_reg_disable_boss_but)
+                holder.buttons[i].isClickable = false
+            }
+            else{
+                holder.buttons[i].setImageResource(R.drawable.ic_reg_disable_but)
+                holder.buttons[i].isClickable = false
+                holder.buttonsnum[i].visibility = View.INVISIBLE
+            }
+
 
         }
 
         for (i in buttonIds.indices) {
-            holder.buttons[i].setOnClickListener {
-                listener.onButtonClick(position, (i + 1).toString())
+            val step = sectionItem.step - 1
+            if (i <= step) {
+                holder.buttons[i].setOnClickListener {
+                    listener.onButtonClick(position, (i + 1).toString())
+                }
             }
         }
 
@@ -63,6 +93,9 @@ class SectionAdapter(
         val buttons: List<ImageButton> = buttonIds.map { id ->
             itemView.findViewById(id)
         }
+        val buttonsnum :List<ImageView> = buttonIdsnum.map { id ->
+            itemView.findViewById(id)
+        }
     }
 
     interface OnButtonClickListener {
@@ -71,5 +104,5 @@ class SectionAdapter(
 
 }
 
-data class SectionItem(val sectionName: String, val description: String, val buttSkin: Int)
+data class SectionItem(val sectionName: String, val description: String, val buttSkin: Int,val step: Int)
 
