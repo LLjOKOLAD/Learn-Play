@@ -100,7 +100,8 @@ class MainActivity : AppCompatActivity(){
     class FetchDataTask(private val activity: MainActivity) : AsyncTask<String, Void, String>() {
 
         private val TIMEOUT_MS = 5000
-        private val API_URL = "http://learnplayback.tplinkdns.com:8081" + "/registration/addUser"
+        private val str = activity.getString(R.string.ip_address)
+        private val API_URL = str.toString() + "/registration/addUser"
 
         override fun doInBackground(vararg params: String): String {
             var result = ""

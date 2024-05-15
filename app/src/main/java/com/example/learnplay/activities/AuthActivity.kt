@@ -62,10 +62,10 @@ class AuthActivity : AppCompatActivity() {
 
         private val activityReference = WeakReference(activity)
 
-
+        private val str = activity.getString(R.string.ip_address)
 
         private val TIMEOUT_MS = 5000
-        private val API_URL = "http://learnplayback.tplinkdns.com:8081" + "/entry"
+        private val API_URL = str.toString() + "/entry"
 
         override fun doInBackground(vararg params: String): String {
             var result = ""
