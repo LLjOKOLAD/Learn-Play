@@ -8,6 +8,8 @@ import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
+import com.example.learnplay.activities.MainProfile
+import com.example.learnplay.adapters.CharacterPagerAdapter
 
 class CharacterSelectionActivity : AppCompatActivity() {
 
@@ -44,7 +46,7 @@ class CharacterSelectionActivity : AppCompatActivity() {
                     db.updateUser(user)
                 }
                 Log.d("CharSelct","Name $selectedCharacterId")
-                val intent = Intent(this,MainProfile::class.java)
+                val intent = Intent(this, MainProfile::class.java)
                 startActivity(intent)
             }
         }

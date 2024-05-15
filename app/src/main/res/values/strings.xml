@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Learn&amp;Play</string>
+    <string name="ip_address">http://learnplayback.tplinkdns.com:8081</string>
 </resources>

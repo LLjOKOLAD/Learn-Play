@@ -8,7 +8,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-
     <application
         android:allowBackup="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -17,11 +16,26 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
         android:theme="@style/Theme.LearnPlay"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".ServerPinging"
+            android:name=".manual.ManualPage3"
+            android:exported="false" />
+        <activity
+            android:name=".Manual2"
+            android:exported="false" />
+        <activity
+            android:name=".manual.ManualPage2"
+            android:exported="false" />
+        <activity
+            android:name=".manual.ManualPage1"
+            android:exported="false" />
+        <activity
+            android:name=".activities.Settings"
+            android:exported="false" />
+        <activity
+            android:name=".activities.ServerPinging"
             android:exported="false" />
         <activity
             android:name=".TasksChallenging"
@@ -30,13 +44,13 @@
             android:name=".CharacterSelectionActivity"
             android:exported="false" />
         <activity
-            android:name=".MainProfile"
+            android:name=".activities.MainProfile"
             android:exported="false" />
         <activity
-            android:name=".AuthActivity"
+            android:name=".activities.AuthActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

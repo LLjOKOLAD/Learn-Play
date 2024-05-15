@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#251135"
-    tools:context=".ProfileFg">
+    tools:context=".fragments.ProfileFg">
 <androidx.core.widget.NestedScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -53,8 +53,17 @@
                     android:layout_alignParentTop="true"
                     android:layout_alignParentEnd="true"
                     android:background="#9041CE"
-
                     />
+
+                <ImageButton
+                    android:id="@+id/enterSetBut"
+                    android:background="@android:color/transparent"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_settings"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"/>
             </RelativeLayout>
 
         </androidx.cardview.widget.CardView>

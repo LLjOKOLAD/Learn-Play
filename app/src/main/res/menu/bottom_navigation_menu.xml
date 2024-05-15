@@ -18,9 +18,11 @@
         android:title="Profile" />
 
     <item
-        android:id="@+id/settingsFg"
-        android:icon="@drawable/ic_settings"
-        android:title="Settings" />
+        android:id="@+id/manualFg"
+        android:icon="@drawable/ic_manual"
+        android:title="Manual" />
+
+
 
 
 </menu>

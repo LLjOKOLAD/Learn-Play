@@ -7,28 +7,29 @@
 
     <fragment
         android:id="@+id/profileFg"
-        android:name="com.example.learnplay.ProfileFg"
+        android:name="com.example.learnplay.fragments.ProfileFg"
         android:label="fragment_profile_fg"
         tools:layout="@layout/fragment_profile_fg" />
-    <fragment
-        android:id="@+id/settingsFg"
-        android:name="com.example.learnplay.SettingsFg"
-        android:label="fragment_settings_fg"
-        tools:layout="@layout/fragment_settings_fg" />
+
     <fragment
         android:id="@+id/learningFg"
-        android:name="com.example.learnplay.Learning"
+        android:name="com.example.learnplay.fragments.LearningFg"
         android:label="fragment_learning"
-        tools:layout="@layout/fragment_learning" />
+        tools:layout="@layout/fragment_learning_fg" />
     <fragment
         android:id="@+id/tasksFg"
-        android:name="com.example.learnplay.Tasks"
+        android:name="com.example.learnplay.fragments.TasksFg"
         android:label="fragment_tasks"
-        tools:layout="@layout/fragment_tasks" />
+        tools:layout="@layout/fragment_tasks_fg" />
     <fragment
         android:id="@+id/ratingFg"
-        android:name="com.example.learnplay.Rating"
+        android:name="com.example.learnplay.fragments.RatingFg"
         android:label="fragment_rating"
-        tools:layout="@layout/fragment_rating" />
+        tools:layout="@layout/fragment_rating_fg" />
+    <fragment
+        android:id="@+id/manualFg"
+        android:name="com.example.learnplay.fragments.ManualFg"
+        android:label="fragment_manual"
+        tools:layout="@layout/fragment_manual" />
 
 </navigation>
