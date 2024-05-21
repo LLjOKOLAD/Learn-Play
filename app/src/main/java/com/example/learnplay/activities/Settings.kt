@@ -1,5 +1,6 @@
 package com.example.learnplay.activities
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -8,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.learnplay.DbHelper
 import com.example.learnplay.R
 import com.example.learnplay.TasksChallenging
+import com.example.learnplay.dataClasses.Question
 import com.zanvent.mathview.MathView
 
 class Settings : AppCompatActivity() {
@@ -65,8 +67,14 @@ class Settings : AppCompatActivity() {
             val stButton: Button = findViewById(R.id.startTasks)
 
             stButton.setOnClickListener {
-                val intent = Intent(this, TasksChallenging::class.java)
-                startActivity(intent)
+                val questions = listOf(
+                    Question("Выберите один правильный ответ.", listOf("Ответ 11342", "Ответ 21324", "Ответ"), "Ответ 11342"),
+                    Question("Вопрос 2", listOf("Ответ 1", "Ответ 2", "Ответ 3"), "Ответ 2"),
+                    Question("Вопрос 3", listOf(), "3")
+                    // Добавьте остальные вопросы сюда
+                )
+
+                startTasksChallengingActivity(questions)
             }
 
             val pgButton: Button = findViewById(R.id.startPing)
@@ -90,5 +98,11 @@ class Settings : AppCompatActivity() {
 
         }
         db.close()
+    }
+
+    fun Context.startTasksChallengingActivity(questions: List<Question>) {
+        val intent = Intent(this, TasksChallenging::class.java)
+        intent.putParcelableArrayListExtra("questions", ArrayList(questions))
+        startActivity(intent)
     }
 }

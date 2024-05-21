@@ -1,5 +1,6 @@
 package com.example.learnplay.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,10 +22,7 @@ class SectionAdapter(
         R.id.map_but_3,
         R.id.map_but_4,
         R.id.map_but_5,
-        R.id.map_but_6,
-        R.id.map_but_7,
-        R.id.map_but_8,
-        R.id.map_but_9
+        R.id.map_but_5
     )
 
     private val buttonIdsnum = listOf(
@@ -33,10 +31,7 @@ class SectionAdapter(
         R.id.map_but_3_num,
         R.id.map_but_3_num,
         R.id.map_but_4_num,
-        R.id.map_but_5_num,
-        R.id.map_but_6_num,
-        R.id.map_but_6_num,
-        R.id.map_but_7_num,
+        R.id.map_but_5_num
     )
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SectionViewHolder {
@@ -51,14 +46,8 @@ class SectionAdapter(
         val step = sectionItem.step - 1
 
         for (i in buttonIds.indices) {
-            if(i<=step){
-                if (i != 3 && i != 7){
-                    holder.buttons[i].setImageResource(sectionItem.buttSkin)
-                }
-            }
-            else if(i == 3 || i==7){
-                holder.buttons[i].setImageResource(R.drawable.ic_reg_disable_boss_but)
-                holder.buttons[i].isClickable = false
+            if(i <= step){
+                holder.buttons[i].setImageResource(sectionItem.buttSkin)
             }
             else{
                 holder.buttons[i].setImageResource(R.drawable.ic_reg_disable_but)

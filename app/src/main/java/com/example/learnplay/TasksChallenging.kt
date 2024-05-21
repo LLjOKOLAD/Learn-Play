@@ -9,6 +9,7 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.learnplay.dataClasses.Question
 
 class TasksChallenging : AppCompatActivity() {
 
@@ -19,18 +20,18 @@ class TasksChallenging : AppCompatActivity() {
     private lateinit var buttonConfirm: Button
     private lateinit var textViewResult: TextView
     private lateinit var buttonNext: Button
+    private lateinit var questions: List<Question>
 
     private var currentQuestionIndex = 0
-    private val questions = listOf(
-        Question("Выберите один правильный ответ.\n1) Площадь квадрата равна произведению двух его смежных сторон. \n2) Диагональ трапеции делит её на два равных треугольника. \n3) Если две стороны одного треугольника соответственно равны двум сторонам другого треугольника, то такие треугольники равны.", listOf("Ответ 1", "Ответ 2", "Ответ 3"), "Ответ 1"),
-        Question("Вопрос 2", listOf("Ответ 1", "Ответ 2", "Ответ 3"), "Правильный ответ 2"),
-        Question("Вопрос 3", listOf(), "Правильный ответ 3"),
-        // Добавьте остальные вопросы сюда
-    )
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tasks_challenging)
+
+        questions = intent.getParcelableArrayListExtra<Question>("questions") ?: listOf()
 
 
         textNameQuestion = findViewById(R.id.textNameQuestion)
@@ -110,4 +111,3 @@ class TasksChallenging : AppCompatActivity() {
     }
 }
 
-data class Question(val text: String, val options: List<String>, val answer: String)

@@ -46,8 +46,8 @@ class MainActivity : AppCompatActivity(){
         val user : User? = db.getLogUser()
         db.close()
         if(user != null){
-            val au = AuthActivity()
-            au.authUser(user.email,user.pass,false)
+            Log.d("User",user.email + " " + user.pass)
+            AuthHelper.sendPost(this,user.email,user.pass,false)
             val intent = Intent(this, MainProfile::class.java)
             startActivity(intent)
         }
@@ -94,14 +94,19 @@ class MainActivity : AppCompatActivity(){
         userData.put("name", name)
         userData.put("email", email)
         userData.put("password", pass)
-        FetchDataTask(this).execute(userData.toString())
+
+        FetchDataTask( this).execute(userData.toString())
     }
 
-    class FetchDataTask(private val activity: MainActivity) : AsyncTask<String, Void, String>() {
+    class FetchDataTask( private val activity: MainActivity) : AsyncTask<String, Void, String>() {
+
+        private val ipAddress = activity.getString(R.string.ip_address)
+
+        private val API_URL = "$ipAddress/registration/addUser"
+
 
         private val TIMEOUT_MS = 5000
-        private val str = activity.getString(R.string.ip_address)
-        private val API_URL = str.toString() + "/registration/addUser"
+
 
         override fun doInBackground(vararg params: String): String {
             var result = ""
@@ -163,8 +168,7 @@ class MainActivity : AppCompatActivity(){
             db.addNewUser(name1, email1, pass1)
             Log.d("Register",db.getUser(email1,pass1).toString())
             db.close()
-            val au = AuthActivity()
-            au.authUser(email1,pass1,false)
+            AuthHelper.sendPost(this,email1,pass1,false)
             val intent = Intent(this, MainProfile::class.java)
             startActivity(intent)
 

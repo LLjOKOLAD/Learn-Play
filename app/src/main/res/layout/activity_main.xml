@@ -67,7 +67,7 @@
         android:layout_height="50dp"
         android:ems="10"
         android:textColor="#fdfdfd"
-        android:inputType="textEmailAddress"
+        android:inputType="textPassword"
         android:textColorHint="#6a6a6a"
         android:layout_marginTop="20dp"
         android:layout_gravity="center"

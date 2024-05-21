@@ -181,6 +181,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
                                 android:layout_weight="1"
+                                android:textColor="#FFFFFF"
                                 android:layout_marginStart="5dp"
                                 android:text="Множитель"
                                 android:textSize="18dp"/>
@@ -227,6 +228,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
                                 android:layout_weight="1"
+                                android:textColor="#FFFFFF"
                                 android:layout_marginStart="5dp"
                                 android:text="Очки опыта"
                                 android:textSize="18dp"/>
@@ -280,6 +282,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
                                 android:layout_weight="1"
+                                android:textColor="#FFFFFF"
                                 android:layout_marginStart="5dp"
                                 android:text="Текущая лига"
                                 android:textSize="18dp"/>
@@ -324,6 +327,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
                                 android:layout_weight="1"
+                                android:textColor="#FFFFFF"
                                 android:layout_marginStart="5dp"
                                 android:text="Топ"
                                 android:textSize="18dp"/>

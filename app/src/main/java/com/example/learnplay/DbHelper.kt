@@ -48,19 +48,28 @@ class DbHelper(val context: Context,val factory: SQLiteDatabase.CursorFactory?) 
 
 
     fun addUser(email:String, pass: String){
-        val values = ContentValues()
-        values.put("login","")
-        values.put("email",email)
-        values.put("pass",pass)
-        values.put("name","")
-        values.put("log_st","True")
-        values.put("multiplier",1f)
-        values.put("experience",0)
-        values.put("character","")
+        val db = this.writableDatabase
 
-        val db =this.writableDatabase
-        db.insert("users",null, values)
+        val cursor = db.query("users", null, "email = ?", arrayOf(email), null, null, null)
+        if (cursor.moveToFirst()) {
+            val values = ContentValues()
+            values.put("pass", pass)
+            db.update("users", values, "email = ?", arrayOf(email))
+        } else {
+            val values = ContentValues()
+            values.put("login", email)
+            values.put("email", email)
+            values.put("pass", pass)
+            values.put("log_st", "True")
+            values.put("name", "Не указан")
+            values.put("multiplier", 1f)
+            values.put("experience", 0)
+            values.put("character", "")
 
+            db.insert("users", null, values)
+        }
+
+        cursor.close()
         db.close()
     }
 
@@ -75,8 +84,8 @@ class DbHelper(val context: Context,val factory: SQLiteDatabase.CursorFactory?) 
         values.put("experience", user.experience)
         values.put("character", user.character)
 
-        val whereClause = "login = ?" // условие для обновления пользователя по логину
-        val whereArgs = arrayOf(user.login) // значение логина для условия
+        val whereClause = "email = ?" // условие для обновления пользователя по логину
+        val whereArgs = arrayOf(user.email) // значение логина для условия
 
         db.update("users", values, whereClause, whereArgs)
 

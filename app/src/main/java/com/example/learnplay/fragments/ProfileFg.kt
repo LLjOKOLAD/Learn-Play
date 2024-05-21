@@ -1,6 +1,7 @@
 package com.example.learnplay.fragments
 
 import android.content.Intent
+import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -13,6 +14,8 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import com.example.learnplay.ApiClient
 import com.example.learnplay.dataClasses.Achievement
 import com.example.learnplay.adapters.AchievementAdapter
 import com.example.learnplay.CharacterSelectionActivity
@@ -20,11 +23,23 @@ import com.example.learnplay.DbHelper
 import com.example.learnplay.viewModels.ProfileFgViewModel
 import com.example.learnplay.R
 import com.example.learnplay.activities.Settings
+import com.example.learnplay.dataClasses.UserNetwork
+import java.io.BufferedReader
+import java.io.InputStreamReader
+import java.net.HttpURLConnection
+import java.net.URL
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ProfileFg : Fragment() {
 
     private lateinit var textView: TextView
     private lateinit var editText: EditText
+    lateinit var recyclerView: RecyclerView
+    lateinit var multPerstext: TextView
+    lateinit var expAmmtext: TextView
+    lateinit var rankPlace: TextView
 
 
     companion object {
@@ -34,19 +49,38 @@ class ProfileFg : Fragment() {
 
     private lateinit var viewModel: ProfileFgViewModel
 
+    private lateinit var userresp: UserNetwork
+
+
+
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
+
+
         val db = DbHelper(requireContext(),null)
         val user = db.getLogUser()
         val view = inflater.inflate(R.layout.fragment_profile_fg, container, false)
+        recyclerView = view.findViewById(R.id.recyclerViewAchievements)
+        rankPlace = view.findViewById(R.id.profTop)
+
+
+
+
+
+
 
         if (user != null) {
             Log.d("Profile",user.login)
             Log.d("Profile",user.log_st)
+            //AuthHelper.sendPost(requireContext(),user.email,user.pass,false)
+            //FetchDataTask(this).execute()
+            authenticateUser(user.email,user.pass)
         }
         else{
             Log.d("Profile", "user is empty")
@@ -78,9 +112,9 @@ class ProfileFg : Fragment() {
 
         //Код для достижений
 
-        val recyclerView: RecyclerView = view.findViewById(R.id.recyclerViewAchievements)
+
         recyclerView.layoutManager = LinearLayoutManager(activity)
-        recyclerView.adapter = AchievementAdapter(getAchievements())
+
 
 
         // Находим TextView и EditText в макете фрагмента
@@ -108,6 +142,8 @@ class ProfileFg : Fragment() {
             // Устанавливаем новый текст в TextView
             textView.text = newText
 
+
+
             // Показываем TextView и скрываем EditText
             textView.visibility = View.VISIBLE
             editText.visibility = View.INVISIBLE
@@ -121,8 +157,8 @@ class ProfileFg : Fragment() {
 
 
 
-        val multPerstext: TextView = view.findViewById(R.id.multPers)
-        val expAmmtext: TextView = view.findViewById(R.id.expAmm)
+        multPerstext = view.findViewById(R.id.multPers)
+        expAmmtext = view.findViewById(R.id.expAmm)
 
         if (user != null) {
             multPerstext.setText(String.format("%.0f%%", user.multiplier * 100))
@@ -167,13 +203,85 @@ class ProfileFg : Fragment() {
         return view
     }
 
+    private fun authenticateUser(username: String, password: String) {
+        val call = ApiClient.apiService.login(username, password)
+        call.enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    //Toast.makeText(requireContext(), "Аутентификация успешна!", Toast.LENGTH_SHORT).show()
+                    fetchUserData()
+                } else {
+                    Toast.makeText(requireContext(), "Ошибка аутентификации: ${response.code()}", Toast.LENGTH_SHORT).show()
+                }
+            }
 
-    private fun getAchievements(): List<Achievement> {
-        return listOf(
-            Achievement("Достижение 1", "Описание достижения 1", 50,100),
-            Achievement("Достижение 2", "Описание достижения 2", 30,100)
-        )
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Toast.makeText(requireContext(), "Ошибка: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
+
+    private fun fetchUserData() {
+        val call = ApiClient.apiService.fetchData()
+        call.enqueue(object : Callback<UserNetwork> {
+            override fun onResponse(call: Call<UserNetwork>, response: Response<UserNetwork>) {
+                if (response.isSuccessful) {
+                    val responseData = response.body()
+                    responseData?.let {
+                        displayUserData(it,getAchievements(it.achievement))
+                    }
+                } else {
+                    Toast.makeText(requireContext(), "Ошибка получения данных: ${response.code()}", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<UserNetwork>, t: Throwable) {
+                Toast.makeText(requireContext(), "Ошибка: ${t.message}", Toast.LENGTH_SHORT).show()
+                Log.d("Resp","Ошибка: ${t.message}")
+            }
+        })
+    }
+
+    private fun displayUserData(userResponse: UserNetwork, achievements: List<Achievement>) {
+        //Toast.makeText(requireContext(), "Пользователь: ${userResponse.userName} \n ", Toast.LENGTH_SHORT).show()
+        val db = DbHelper(requireContext(),null)
+        val user = db.getLogUser()
+        if (user != null) {
+            user.name = userResponse.userName
+            user.experience = userResponse.exp
+            user.multiplier = userResponse.multiplier
+            db.updateUser(user)
+        }
+        db.close()
+        textView.setText(userResponse.userName)
+        multPerstext.setText(String.format("%.0f%%", userResponse.multiplier * 100))
+        expAmmtext.setText(userResponse.exp.toString())
+        rankPlace.setText(userResponse.rankPlace.toString())
+        recyclerView.adapter = AchievementAdapter(achievements)
+        //Toast.makeText(requireContext(),"Данные обновлены",Toast.LENGTH_LONG).show()
+    }
+
+
+    private fun getAchievements(achievementData: List<List<Any>>): List<Achievement> {
+        val achievements = mutableListOf<Achievement>()
+        for (item in achievementData) {
+            if (item.size >= 3) {
+                val name = item[0] as? String ?: ""
+                val progress = item[1] as? Int ?: 0
+                val maxProgress = item[2] as? Int ?: 100
+                achievements.add(Achievement(name, "", progress, maxProgress))
+            }
+        }
+        return achievements
+    }
+
+
+
+
+
+
+
+
 
 
 }

@@ -11,6 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.example.learnplay.DbHelper
 import com.example.learnplay.R
+import com.example.learnplay.dataClasses.User
 import java.io.DataOutputStream
 import java.lang.ref.WeakReference
 import java.net.HttpURLConnection
@@ -44,6 +45,7 @@ class AuthActivity : AppCompatActivity() {
             val pass = userPass.text.toString().trim()
 
             email1 = email
+            pass1 = pass
 
             if(email == ""|| pass == "" )
                 Toast.makeText(this,"Не все поля заполнены", Toast.LENGTH_SHORT).show()
@@ -58,14 +60,15 @@ class AuthActivity : AppCompatActivity() {
         FetchDataTask(this).execute(userData)
     }
 
-    class FetchDataTask(private val activity: AuthActivity) : AsyncTask<String, Void, String>() {
+    class FetchDataTask(activity: AuthActivity) : AsyncTask<String, Void, String>() {
 
         private val activityReference = WeakReference(activity)
 
         private val str = activity.getString(R.string.ip_address)
 
+
         private val TIMEOUT_MS = 5000
-        private val API_URL = str.toString() + "/entry"
+        private val API_URL = str + "/entry"
 
         override fun doInBackground(vararg params: String): String {
             var result = ""
@@ -127,11 +130,21 @@ class AuthActivity : AppCompatActivity() {
                 val db = DbHelper(this,null)
                 Log.d("Authentication", db.getUser(email1,pass1).toString())
                 if(!db.getUser(email1,pass1)){
-                    db.addUser(email1,pass1)
+                    db.addUser(email1, pass1)
+                    Log.d("Add","User added")
                 }
                 else{
                     db.LogUser(email1,"True")
+                    Log.d("Add","User already existing")
+                    val user = db.getLogUser()
+                    if(user!=null){
+                        val user1 = User(user.login,user.email,pass1,user.name,user.log_st,user.multiplier,user.experience,user.character)
+                        db.updateUser(user1)
+                        Log.d("Update","User updated")
+                    }
+
                 }
+                db.close()
 
                 val intent = Intent(this, MainProfile::class.java)
                 startActivity(intent)
