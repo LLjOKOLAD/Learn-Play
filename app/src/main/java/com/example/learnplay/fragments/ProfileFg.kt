@@ -266,9 +266,9 @@ class ProfileFg : Fragment() {
         val achievements = mutableListOf<Achievement>()
         for (item in achievementData) {
             if (item.size >= 3) {
-                val name = item[0] as? String ?: ""
-                val progress = item[1] as? Int ?: 0
-                val maxProgress = item[2] as? Int ?: 100
+                val name = item[0].toString()
+                val progress = item[2].toString().toFloat().toInt()
+                val maxProgress = item[1].toString().toFloat().toInt()
                 achievements.add(Achievement(name, "", progress, maxProgress))
             }
         }
