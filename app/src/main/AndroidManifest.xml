@@ -20,6 +20,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".activities.NotSuccessEnfOfQuest"
+            android:exported="false" />
+        <activity
+            android:name=".activities.SuccessEnfOfQuest"
+            android:exported="false" />
+        <activity
             android:name=".manual.ManualPage3"
             android:exported="false" />
         <activity
@@ -38,7 +44,7 @@
             android:name=".activities.ServerPinging"
             android:exported="false" />
         <activity
-            android:name=".TasksChallenging"
+            android:name=".activities.TasksChallenging"
             android:exported="false" />
         <activity
             android:name=".CharacterSelectionActivity"

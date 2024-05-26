@@ -1,7 +1,5 @@
 package com.example.learnplay.fragments
 
-import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -16,10 +14,10 @@ import com.example.learnplay.ApiClient
 import com.example.learnplay.DbHelper
 import com.example.learnplay.viewModels.LearningViewModel
 import com.example.learnplay.R
-import com.example.learnplay.TasksChallenging
+import com.example.learnplay.activities.TasksChallenging
 import com.example.learnplay.adapters.SectionAdapter
 import com.example.learnplay.adapters.SectionItem
-import com.example.learnplay.dataClasses.Question
+import com.example.learnplay.dataClasses.TaskResponse
 import com.example.learnplay.dataClasses.TopicNetwork
 import com.example.learnplay.dataClasses.TopicRequest
 import retrofit2.Call
@@ -174,25 +172,15 @@ class LearningFg : Fragment() {
         }
     }
 
-    fun Context.startTasksChallengingActivity(questions: List<Question>) {
-        val intent = Intent(this, TasksChallenging::class.java)
-        intent.putParcelableArrayListExtra("questions", ArrayList(questions))
-        startActivity(intent)
-    }
+
 
     private fun getTopicQuest(topicId:Int, step:Int){
-        val request = TopicRequest(topicId, step)
+        val request = TopicRequest(topicId + 1, step)
         val call = ApiClient.apiService.startTopicQuest(request)
         call.enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {
-
-                    // Обработка ответа
-                    Toast.makeText(requireContext(), "Status: ${response.code()}", Toast.LENGTH_SHORT).show()
-                    // Пример перехода на другую активность, если это нужно
-                    // val intent = Intent(this@MainActivity, QuestActivity::class.java)
-                    // startActivity(intent)
-
+                    startQuesting()
                 } else {
                     Toast.makeText(requireContext(), "Error: ${response.code()}", Toast.LENGTH_SHORT).show()
                 }
@@ -203,6 +191,15 @@ class LearningFg : Fragment() {
             }
         })
     }
+
+    private fun startQuesting(){
+        val intent = Intent(requireContext(),TasksChallenging::class.java)
+        startActivity(intent)
+    }
+
+
+
+
 
 }
 

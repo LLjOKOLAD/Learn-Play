@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:background="#251135"
+    android:layout_marginTop="20dp"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:id="@+id/rankPlaceIcon"
+        android:layout_marginStart="10dp"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/ratingIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:textColor="#FFFFFF"
+            android:layout_marginStart="20dp"
+            android:id="@+id/rankPlaceTextView"
+            android:fontFamily="@font/montagu_slab"
+            android:layout_width="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:textSize="24sp" />
+
+    </RelativeLayout>
+
+
+    <ImageView
+        android:id="@+id/rankUserAva"
+        android:layout_width="wrap_content"
+        android:layout_toEndOf="@id/rankPlaceIcon"
+        android:layout_height="wrap_content"/>
+
+
+    <TextView
+        android:layout_marginStart="30dp"
+        android:textColor="#FFFFFF"
+        android:layout_centerVertical="true"
+        android:id="@+id/userNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_alternates_semi_bold"
+        android:text="UserName"
+        android:layout_toEndOf="@id/rankUserAva"
+        android:textSize="24sp" />
+
+
+
+    <TextView
+        android:layout_alignParentEnd="true"
+        android:id="@+id/expTextView"
+        android:layout_centerVertical="true"
+        android:textColor="#FFFFFF"
+        android:layout_marginEnd="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_alternates_light"
+        android:text="Experience"
+        android:textSize="24sp" />
+</RelativeLayout>
