@@ -10,28 +10,6 @@ import com.example.learnplay.R
 
 class MainProfile : AppCompatActivity() {
 
-    val handler = Handler()
-
-    private val runnable = object : Runnable {
-        override fun run() {
-            // Ваш код, который нужно выполнять периодически
-            Log.d("MainProfile", "Repeat")
-            handler.postDelayed(this, INTERVAL_MILLISECONDS)
-        }
-    }
-
-    fun startRepeatingTask() {
-        handler.post(runnable)
-    }
-
-    fun stopRepeatingTask() {
-        handler.removeCallbacks(runnable)
-    }
-
-    companion object {
-        private const val INTERVAL_MILLISECONDS: Long = 5000
-    }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,6 +56,16 @@ class MainProfile : AppCompatActivity() {
             }
         }
 
+        val fragmentToOpen = intent.getStringExtra("fragment_to_open")
+        if (fragmentToOpen != null) {
+            when (fragmentToOpen) {
+                "learningFg" -> navController.navigate(R.id.learningFg)
+                "ratingFg" -> navController.navigate(R.id.ratingFg)
+                "tasksFg" -> navController.navigate(R.id.tasksFg)
+                "profileFg" -> navController.navigate(R.id.profileFg)
+                "manualFg" -> navController.navigate(R.id.manualFg)
+            }
+        }
 
     }
 }

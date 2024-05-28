@@ -1,14 +1,22 @@
 package com.example.learnplay.activities
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.PictureDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.caverock.androidsvg.SVG
 import com.example.learnplay.ApiClient
 import com.example.learnplay.R
 import com.example.learnplay.dataClasses.TaskResponse
@@ -16,11 +24,14 @@ import com.zanvent.mathview.MathView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.IOException
+import java.io.InputStream
 
 class TasksChallenging : AppCompatActivity() {
 
     private lateinit var textNameQuestion: TextView
     private lateinit var textViewQuestion: MathView
+    private lateinit var taskImageView: ImageView
     private lateinit var editTextAnswer: EditText
     private lateinit var buttonConfirm: Button
     private lateinit var textViewResult: TextView
@@ -42,10 +53,12 @@ class TasksChallenging : AppCompatActivity() {
 
         textNameQuestion = findViewById(R.id.textNameQuestion)
         textViewQuestion = findViewById(R.id.textViewQuestion)
+        taskImageView = findViewById(R.id.taskImage)
         editTextAnswer = findViewById(R.id.editTextAnswer)
         buttonConfirm = findViewById(R.id.buttonConfirm)
         textViewResult = findViewById(R.id.textViewResult)
         buttonNext = findViewById(R.id.buttonNext)
+
 
         textViewQuestion.setTextSize(15)
         textViewQuestion.textColor = "#FFFFFF"
@@ -147,10 +160,26 @@ class TasksChallenging : AppCompatActivity() {
     private fun updateQuestion() {
         currentQuestion?.let { question ->
             textViewQuestion.text = question.quotation
+            textViewQuestion.textColor = "#000000"
             editTextAnswer.text.clear()
             buttonConfirm.visibility = View.VISIBLE
             textViewResult.visibility = View.GONE
             buttonNext.visibility = View.GONE
+            if(question.image!=null){
+                // Извлечение названия файла изображения из пути
+                Log.d("Image","${question.image}")
+                val imageName = question.image.substringAfterLast("/")
+                val fileExtension = imageName.substringAfterLast(".")
+
+                // Загрузка изображения в зависимости от типа файла
+                when (fileExtension.lowercase()) {
+                    "svg" -> loadSVGFromAssets("images/$imageName", taskImageView, 800,400)
+                    "png", "jpg", "jpeg" -> loadImageFromAssets("images/$imageName", taskImageView)
+                    else -> {}
+                }
+
+
+            }
         }
 
 
@@ -160,25 +189,87 @@ class TasksChallenging : AppCompatActivity() {
 
     }
 
+    private fun loadSVGFromAssets(imagePath: String, imageView: ImageView, width: Int, height: Int) {
+        try {
+            // Создание белого прямоугольника с нужными размерами
+            val backgroundBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+            backgroundBitmap.eraseColor(Color.WHITE)
+
+            // Создание Canvas и рисование прямоугольника
+            val backgroundCanvas = Canvas(backgroundBitmap)
+            val backgroundPaint = Paint(Paint.ANTI_ALIAS_FLAG)
+            backgroundCanvas.drawRect(0f, 0f, width.toFloat(), height.toFloat(), backgroundPaint)
+
+            // Создание SVG из InputStream
+            val inputStream: InputStream = assets.open(imagePath)
+            val svg = SVG.getFromInputStream(inputStream)
+
+            // Создание Drawable из SVG
+            val drawable = PictureDrawable(svg.renderToPicture())
+
+            // Установка Drawable в ImageView с белым фоном
+            imageView.setLayerType(ImageView.LAYER_TYPE_SOFTWARE, null)
+            imageView.setImageDrawable(drawable)
+            imageView.setBackgroundColor(Color.WHITE)
+            imageView.layoutParams.width = width
+            imageView.layoutParams.height = height
+
+            // Закрытие InputStream
+            inputStream.close()
+
+        } catch (e: IOException) {
+            e.printStackTrace()
+            // Обработка ошибки (например, показать placeholder)
+
+        }
+    }
+
+    private fun loadImageFromAssets(imagePath: String, imageView: ImageView) {
+        try {
+            // Открытие файла из assets
+            val inputStream: InputStream = assets.open(imagePath)
+
+            // Создание Drawable из InputStream
+            val drawable = Drawable.createFromStream(inputStream, null)
+
+            // Установка Drawable в ImageView
+            imageView.setImageDrawable(drawable)
+
+            // Закрытие InputStream
+            inputStream.close()
+
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+    }
+
     private fun checkAnswer() {
         val question = currentQuestion ?: return
         val userAnswer = editTextAnswer.text.toString()
 
-        val result: String = if (userAnswer == question.answer) {
+        val result: String = if (userAnswer.toFloat().toString() == question.answer) {
             sendSuccessTask(question.idTask)
             textViewResult.setTextColor(Color.parseColor("#31FA11"))
-            "Правильно!"
+            question.answer
         } else {
             sendFailedTask(question.idTask)
             textViewResult.setTextColor(Color.parseColor("#EE0606"))
-            "Неправильно!"
+            question.answer
         }
 
-        textViewResult.text = result
+        textViewResult.text = formatNumber(result.toFloat())
         textViewResult.visibility = View.VISIBLE
 
         buttonConfirm.visibility = View.GONE
         buttonNext.visibility = View.VISIBLE
+    }
+
+    fun formatNumber(number: Float): String {
+        return if (number == number.toInt().toFloat()) {
+            number.toInt().toString() // Вывод целого числа без дробной части
+        } else {
+            number.toString() // Вывод с дробной частью
+        }
     }
 
     private fun sendSuccessTask(taskId: Int) {

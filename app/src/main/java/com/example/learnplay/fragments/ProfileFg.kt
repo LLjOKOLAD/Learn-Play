@@ -40,6 +40,7 @@ class ProfileFg : Fragment() {
     lateinit var multPerstext: TextView
     lateinit var expAmmtext: TextView
     lateinit var rankPlace: TextView
+    private lateinit var iconLige: ImageView
 
 
     companion object {
@@ -68,6 +69,7 @@ class ProfileFg : Fragment() {
         val view = inflater.inflate(R.layout.fragment_profile_fg, container, false)
         recyclerView = view.findViewById(R.id.recyclerViewAchievements)
         rankPlace = view.findViewById(R.id.profTop)
+        iconLige = view.findViewById(R.id.ligeIcon)
 
 
 
@@ -78,8 +80,6 @@ class ProfileFg : Fragment() {
         if (user != null) {
             Log.d("Profile",user.login)
             Log.d("Profile",user.log_st)
-            //AuthHelper.sendPost(requireContext(),user.email,user.pass,false)
-            //FetchDataTask(this).execute()
             authenticateUser(user.email,user.pass)
         }
         else{
@@ -142,6 +142,8 @@ class ProfileFg : Fragment() {
             // Устанавливаем новый текст в TextView
             textView.text = newText
 
+            changeName(newText)
+
 
 
             // Показываем TextView и скрываем EditText
@@ -165,41 +167,14 @@ class ProfileFg : Fragment() {
             expAmmtext.setText(user.experience.toString())
         }
 
-        val iconLige: ImageView = view.findViewById(R.id.ligeIcon)
+        val avaCh: ImageButton = view.findViewById(R.id.changeAvaButton)
 
-        val exp: Int? = user?.experience
-        if (exp != null) {
-            if (exp in 0 .. 19){
-                iconLige.setImageResource(R.drawable.lige_1)
-            }
-            else if (exp in 20..59){
-                iconLige.setImageResource(R.drawable.lige_2)
-            }
-            else if (exp in 60 .. 119){
-                iconLige.setImageResource(R.drawable.lige_3)
-            }
-            else if (exp in 120 .. 199){
-                iconLige.setImageResource(R.drawable.lige_4)
-            }
-            else if (exp in 200 .. 299){
-                iconLige.setImageResource(R.drawable.lige_5)
-            }
-            else if (exp in 300 .. 419){
-                iconLige.setImageResource(R.drawable.lige_6)
-            }
-            else if (exp >= 420){
-                iconLige.setImageResource(R.drawable.lige_7)
-            }
-
-            val avaCh: ImageButton = view.findViewById(R.id.changeAvaButton)
-
-            avaCh.setOnClickListener {
-                val intent = Intent(requireContext(), CharacterSelectionActivity::class.java)
-                startActivity(intent)
-            }
-
-
+        avaCh.setOnClickListener {
+            val intent = Intent(requireContext(), CharacterSelectionActivity::class.java)
+            startActivity(intent)
         }
+
+
         return view
     }
 
@@ -259,6 +234,30 @@ class ProfileFg : Fragment() {
         rankPlace.setText(userResponse.rankPlace.toString())
         recyclerView.adapter = AchievementAdapter(achievements)
         //Toast.makeText(requireContext(),"Данные обновлены",Toast.LENGTH_LONG).show()
+
+        val exp = userResponse.exp
+
+        if (exp in 0 .. 99){
+            iconLige.setImageResource(R.drawable.lige_1)
+        }
+        else if (exp in 100..199){
+            iconLige.setImageResource(R.drawable.lige_2)
+        }
+        else if (exp in 200 .. 299){
+            iconLige.setImageResource(R.drawable.lige_3)
+        }
+        else if (exp in 300 .. 399){
+            iconLige.setImageResource(R.drawable.lige_4)
+        }
+        else if (exp in 400 .. 499){
+            iconLige.setImageResource(R.drawable.lige_5)
+        }
+        else if (exp in 500 .. 599){
+            iconLige.setImageResource(R.drawable.lige_6)
+        }
+        else if (exp >= 600){
+            iconLige.setImageResource(R.drawable.lige_7)
+        }
     }
 
 
@@ -272,7 +271,24 @@ class ProfileFg : Fragment() {
                 achievements.add(Achievement(name, "", progress, maxProgress))
             }
         }
-        return achievements
+        return achievements.sortedByDescending { it.progress.toFloat() / it.maxProgress }
+    }
+
+    private fun changeName(newName: String) {
+        val call = ApiClient.apiService.changeName(newName)
+        call.enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    Toast.makeText(requireContext(), "Имя успешно изменено", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(requireContext(), "Ошибка сервера: ${response.code()}", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Toast.makeText(requireContext(), "Ошибка сети: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
 

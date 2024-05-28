@@ -1,91 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="#251135"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.Settings">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:id="@+id/labelSett"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="36sp"
+        android:textColor="#FFFFFF"
+        android:fontFamily="@font/montserrat_alternates_semi_bold"
+        android:layout_centerHorizontal="true"
         android:text="Settings" />
 
-    <RelativeLayout
+    <Button
+
+        android:id="@+id/lg_out_button"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:fontFamily="@font/montagu_slab"
+        android:text="Выход" />
 
-        <Button
-            android:id="@+id/ch_button"
-            android:layout_marginTop="50dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Current session"
-            tools:ignore="MissingConstraints" />
+    <EditText
+        android:id="@+id/chEmailText"
+        android:layout_below="@id/labelSett"
+        android:layout_width="300dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="50dp"
+        android:ems="1"
+        android:textColor="#fdfdfd"
+        android:inputType="textEmailAddress"
+        android:textColorHint="#6a6a6a"
+        android:layout_marginTop="40dp"
+        android:hint="Введите новую почту"
+        android:fontFamily="@font/montagu_slab"
+         />
 
-        <Button
-            android:layout_below="@id/ch_button"
-            android:id="@+id/lg_out_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Log out"
-            tools:ignore="MissingConstraints" />
+    <Button
+        android:id="@+id/chEmailButt"
+        android:layout_below="@+id/chEmailText"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="20dp"
+        android:text="Изменить"
+        android:fontFamily="@font/montagu_slab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
-        <Button
-            android:layout_below="@id/lg_out_button"
-            android:id="@+id/add50exp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="add50exp"
-            tools:ignore="MissingConstraints" />
+    <EditText
+        android:id="@+id/chPassOld"
+        android:layout_below="@id/chEmailButt"
+        android:layout_width="300dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="50dp"
+        android:ems="1"
+        android:textColor="#fdfdfd"
+        android:inputType="textPassword"
+        android:textColorHint="#6a6a6a"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/montagu_slab"
+        android:hint="Введите старый пароль"
+        />
 
-        <Button
-            android:layout_below="@id/add50exp"
-            android:id="@+id/take50exp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="take50exp"
-            tools:ignore="MissingConstraints" />
+    <EditText
+        android:id="@+id/chPassNew"
+        android:layout_below="@id/chPassOld"
+        android:layout_width="300dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="50dp"
+        android:ems="1"
+        android:textColor="#fdfdfd"
+        android:inputType="textPassword"
+        android:textColorHint="#6a6a6a"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/montagu_slab"
+        android:hint="Введите новый пароль"
+        />
 
-        <Button
-            android:layout_below="@id/take50exp"
-            android:id="@+id/startTasks"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Start tasks"
-            tools:ignore="MissingConstraints" />
+    <EditText
+        android:id="@+id/chPassNewRep"
+        android:layout_below="@id/chPassNew"
+        android:layout_width="300dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="50dp"
+        android:ems="1"
+        android:textColor="#fdfdfd"
+        android:inputType="textPassword"
+        android:textColorHint="#6a6a6a"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/montagu_slab"
+        android:hint="Введите новый пароль (повторно)"
+        />
 
-        <Button
-            android:layout_below="@id/startTasks"
-            android:id="@+id/startPing"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Start ping"
-            tools:ignore="MissingConstraints" />
-
-        <RelativeLayout
-            android:layout_below="@+id/startPing"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <com.zanvent.mathview.MathView
-                android:id="@+id/mathView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-
-
-        </RelativeLayout>
-
-
-
-
-
-
-
-
-    </RelativeLayout>
-
-
+    <Button
+        android:id="@+id/chPassButt"
+        android:layout_below="@+id/chPassNewRep"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="20dp"
+        android:text="Изменить"
+        android:fontFamily="@font/montagu_slab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
 
-</FrameLayout>
+
+
+</RelativeLayout>

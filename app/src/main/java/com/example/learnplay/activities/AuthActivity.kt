@@ -4,7 +4,9 @@ import android.content.Intent
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
+import android.util.Patterns
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -49,8 +51,11 @@ class AuthActivity : AppCompatActivity() {
 
             if(email == ""|| pass == "" )
                 Toast.makeText(this,"Не все поля заполнены", Toast.LENGTH_SHORT).show()
-            else {
+            else if(isValidEmail(email)){
                 authUser(email,pass,true)
+            }
+            else {
+                Toast.makeText(this,"Неверный формат почты", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -155,6 +160,10 @@ class AuthActivity : AppCompatActivity() {
                 Toast.makeText(this,"Неверные почта или пароль!",Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun isValidEmail(email: CharSequence?): Boolean {
+        return !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 
 }

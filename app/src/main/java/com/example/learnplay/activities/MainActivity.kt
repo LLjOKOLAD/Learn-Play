@@ -5,7 +5,9 @@ import android.content.Intent
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
+import android.util.Patterns
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -78,12 +80,27 @@ class MainActivity : AppCompatActivity(){
             if(login ==  "" || email == ""||pass == "" || passRep == "")
                 Toast.makeText(this,"Не все поля заполнены",Toast.LENGTH_SHORT).show()
             else {
-                if (pass == passRep) {
-                    sendPost(login,email,pass)
+                when{
+                    pass.length < 8 ->{
+                        Toast.makeText(this, "Минимальная длина пароля 8", Toast.LENGTH_SHORT).show()
+                    }
+                    pass.contains(" ") ->{
+                        Toast.makeText(this, "В пароле не должно содержаться пробелов", Toast.LENGTH_SHORT).show()
+                    }
+                    pass != passRep ->{
+                        Toast.makeText(this, "Пароли не совпадают", Toast.LENGTH_SHORT).show()
+                    }
+                    else ->{
+                        if(isValidEmail(email)){
+                                sendPost(login,email,pass)
+                        }
+                        else{
+                            Toast.makeText(this,"Неверный формат почты",Toast.LENGTH_SHORT).show()
+                        }
+                    }
                 }
-                else{
-                    Toast.makeText(this,"Пароли не совпадают",Toast.LENGTH_SHORT).show()
-                }
+
+
             }
         }
 
@@ -176,5 +193,9 @@ class MainActivity : AppCompatActivity(){
         else{
             Toast.makeText(this,"Пользователь с таким email уже существует!",Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun isValidEmail(email: CharSequence?): Boolean {
+        return !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,6 +7,14 @@
     android:orientation="vertical"
     android:background="#251135"
     tools:context=".fragments.LearningFg">
+
+    <ImageView
+        android:id="@+id/notif_but"
+        android:translationZ="2dp"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/notification_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -16,4 +24,4 @@
     </androidx.recyclerview.widget.RecyclerView>
 
 
-</FrameLayout>
+</RelativeLayout>

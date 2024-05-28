@@ -7,17 +7,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.learnplay.ApiClient
 import com.example.learnplay.DbHelper
+import com.example.learnplay.activities.Notification
 import com.example.learnplay.viewModels.LearningViewModel
 import com.example.learnplay.R
 import com.example.learnplay.activities.TasksChallenging
 import com.example.learnplay.adapters.SectionAdapter
 import com.example.learnplay.adapters.SectionItem
-import com.example.learnplay.dataClasses.TaskResponse
 import com.example.learnplay.dataClasses.TopicNetwork
 import com.example.learnplay.dataClasses.TopicRequest
 import retrofit2.Call
@@ -46,6 +47,11 @@ class LearningFg : Fragment() {
         val layoutManager = LinearLayoutManager(requireContext())
         recyclerView.layoutManager = layoutManager
 
+        val notButt:ImageView = view.findViewById(R.id.notif_but)
+
+        notButt.setOnClickListener(){
+            startActivity(Intent(requireContext(), Notification::class.java))
+        }
 
         val sectionItems = mutableListOf(
             SectionItem("Раздел 1", "Клартиры и садовые участки", R.drawable.map_reg_button,5),

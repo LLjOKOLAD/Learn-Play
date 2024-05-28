@@ -20,6 +20,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".activities.Notification"
+            android:exported="false" />
+        <activity
             android:name=".activities.NotSuccessEnfOfQuest"
             android:exported="false" />
         <activity
@@ -27,9 +30,6 @@
             android:exported="false" />
         <activity
             android:name=".manual.ManualPage3"
-            android:exported="false" />
-        <activity
-            android:name=".Manual2"
             android:exported="false" />
         <activity
             android:name=".manual.ManualPage2"
@@ -45,7 +45,8 @@
             android:exported="false" />
         <activity
             android:name=".activities.TasksChallenging"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".CharacterSelectionActivity"
             android:exported="false" />

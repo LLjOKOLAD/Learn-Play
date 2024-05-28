@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="15dp"
+    app:cardBackgroundColor="#696969"
+    android:clickable="true"
+    android:focusable="true"
+    >
+<androidx.cardview.widget.CardView
+    android:layout_margin="2dp"
+    app:cardCornerRadius="15dp"
+    app:cardBackgroundColor="#251135"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/labelTextView"
+            android:fontFamily="@font/montagu_slab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            android:textColor="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/messageTextView"
+            android:fontFamily="@font/montagu_slab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textAppearance="?attr/textAppearanceBody2"
+            android:textColor="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/dateTextView"
+            android:fontFamily="@font/montagu_slab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textAppearance="?attr/textAppearanceCaption"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
+
+</androidx.cardview.widget.CardView>

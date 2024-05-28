@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:background="#251135"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.Notification">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="16dp" />
+
+    <TextView
+        android:id="@+id/no_notifications_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:fontFamily="@font/montagu_slab"
+        android:text="Нет уведомлений"
+        android:visibility="gone"
+        android:textSize="18sp"
+        android:textColor="#FFFFFF"/>
+
+</RelativeLayout>

@@ -62,5 +62,6 @@ dependencies {
     implementation ("com.squareup.okhttp3:logging-interceptor:4.9.1")
     implementation ("com.squareup.okhttp3:okhttp:4.9.3")
     implementation ("com.github.frhnfrq:MathView:1.2")
+    implementation ("com.caverock:androidsvg:1.4")
 
 }

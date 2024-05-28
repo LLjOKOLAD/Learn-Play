@@ -21,14 +21,12 @@ class SectionAdapter(
         R.id.map_but_2,
         R.id.map_but_3,
         R.id.map_but_4,
-        R.id.map_but_5,
         R.id.map_but_5
     )
 
     private val buttonIdsnum = listOf(
         R.id.map_but_1_num,
         R.id.map_but_2_num,
-        R.id.map_but_3_num,
         R.id.map_but_3_num,
         R.id.map_but_4_num,
         R.id.map_but_5_num
